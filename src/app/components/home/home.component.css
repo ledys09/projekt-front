@@ -1,8 +1,18 @@
-.container {
+.homeC {
     position: absolute;
-    width: 757px;
-    height: 1024px;
-    right: 0px;
-    top: 0px;
-    background: #B030B0;
+    width: 50%;
+    height: 50%;
+    right: 5px;
+    top: 100px;
+}
+
+.carrusel {
+    width: auto;
+    padding: 100px;
+}
+
+.planes {
+    margin-top: 100px;
+    margin-left: auto;
+    margin-left: auto;
 }
