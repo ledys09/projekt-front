@@ -1,18 +1,21 @@
-.homeC {
+/* .homeC {
     position: absolute;
     width: 50%;
     height: 50%;
     right: 5px;
     top: 100px;
-}
+} */
 
 .carrusel {
-    width: auto;
-    padding: 100px;
+    margin-top: 150px;
 }
 
 .planes {
     margin-top: 100px;
-    margin-left: auto;
-    margin-left: auto;
+}
+
+.card {
+    color: #B030B0;
+    background-color: white;
+    margin-bottom: 20px;
 }
