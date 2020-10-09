@@ -14,7 +14,18 @@ import { RegisterClientComponent } from './components/register/register-client.c
 import { RegisterEnterpriseComponent } from './components/register/register-enterprise.component';
 import { NavColorDirective } from './directives/nav-color.directive';
 import { FooterComponent } from './components/shared/footer/footer.component';
-
+import { InicioComponent } from './components/modules/enterprise/inicio/inicio.component';
+import { PagesComponent } from './components/modules/enterprise/pages/pages.component';
+import { FilesComponent } from './components/modules/enterprise/files/files.component';
+import { CategoriesComponent } from './components/modules/enterprise/categories/categories.component';
+import { ProductsComponent } from './components/modules/enterprise/products/products.component';
+import { SettingComponent } from './components/modules/enterprise/setting/setting.component';
+import { TemplatesComponent } from './components/modules/enterprise/templates/templates.component';
+import { ShoppingComponent } from './components/modules/client/shopping/shopping.component';
+import { ShopcartComponent } from './components/modules/client/shopcart/shopcart.component';
+import { UsermanageComponent } from './components/modules/admin/usermanage/usermanage.component';
+import { PlanmanageComponent } from './components/modules/admin/planmanage/planmanage.component';
+import { TemplatemanageComponent } from './components/modules/admin/templatemanage/templatemanage.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +39,19 @@ import { FooterComponent } from './components/shared/footer/footer.component';
     RegisterClientComponent,
     RegisterEnterpriseComponent,
     NavColorDirective,
-    FooterComponent
+    FooterComponent,
+    InicioComponent,
+    PagesComponent,
+    FilesComponent,
+    CategoriesComponent,
+    ProductsComponent,
+    SettingComponent,
+    TemplatesComponent,
+    ShoppingComponent,
+    ShopcartComponent,
+    UsermanageComponent,
+    PlanmanageComponent,
+    TemplatemanageComponent
   ],
   imports: [
     BrowserModule,

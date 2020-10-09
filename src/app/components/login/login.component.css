@@ -1,18 +1,11 @@
-.abs-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    margin-right: auto;
-    margin-left: auto;
-}
-
 .form {
     width: 450px;
 }
 
-.formulario {
-    border: 2px solid #602080;
+.iniciar {
+    width: 100px;
+    border-radius: 150px !important;
+    margin-left: 35% !important;
 }
 
 

@@ -10,3 +10,34 @@ body {
     background-color: #602080;
     border-color: #602080;
 }
+
+.abs-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.iniciar {
+    width: 100px;
+    border-radius: 150px !important;
+    margin-left: 35%;
+    color: #ffffff;
+}
+
+.formulario {
+    border: 2px solid #602080;
+    color: #b030b0;
+    background-color: white;
+    width: 350px;
+    padding: 20px;
+    border-radius: 6%;
+}
+
+.iniciar:hover {
+    background-color: #b030b0;
+    border-color: violet;
+    color: #ffffff;
+}
