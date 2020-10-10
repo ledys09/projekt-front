@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
-import { RegisterComponent } from './components/register/register.component';
-import { LoginComponent } from './components/login/login.component';
-import { EnterprisesComponent } from './components/enterprises/enterprises.component';
-import { AboutComponent } from './components/about/about.component';
-import { RegisterClientComponent } from './components/register/register-client.component';
-import { RegisterEnterpriseComponent } from './components/register/register-enterprise.component';
+import { HomeComponent } from './pages/home/home.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { LoginComponent } from './pages/login/login.component';
+import { EnterprisesComponent } from './pages/enterprises/enterprises.component';
+import { AboutComponent } from './pages/about/about.component';
+import { RegisterClientComponent } from './pages/register/register-client.component';
+import { RegisterEnterpriseComponent } from './pages/register/register-enterprise.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },

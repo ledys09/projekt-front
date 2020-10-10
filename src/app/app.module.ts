@@ -14,18 +14,7 @@ import { RegisterClientComponent } from './pages/register/register-client.compon
 import { RegisterEnterpriseComponent } from './pages/register/register-enterprise.component';
 import { NavColorDirective } from './directives/nav-color.directive';
 import { FooterComponent } from './pages/shared/footer/footer.component';
-import { InicioComponent } from './models/enterprise/inicio/inicio.component';
-import { PagesComponent } from './models/enterprise/pages/pages.component';
-import { FilesComponent } from './models/enterprise/files/files.component';
-import { CategoriesComponent } from './models/enterprise/categories/categories.component';
-import { ProductsComponent } from './models/enterprise/products/products.component';
-import { SettingComponent } from './models/enterprise/setting/setting.component';
-import { TemplatesComponent } from './models/enterprise/templates/templates.component';
-import { ShoppingComponent } from './models/client/shopping/shopping.component';
-import { ShopcartComponent } from './models/client/shopcart/shopcart.component';
-import { UsermanageComponent } from './models/admin/usermanage/usermanage.component';
-import { PlanmanageComponent } from './models/admin/planmanage/planmanage.component';
-import { TemplatemanageComponent } from './models/admin/templatemanage/templatemanage.component';
+
 
 @NgModule({
   declarations: [
@@ -39,19 +28,7 @@ import { TemplatemanageComponent } from './models/admin/templatemanage/templatem
     RegisterClientComponent,
     RegisterEnterpriseComponent,
     NavColorDirective,
-    FooterComponent,
-    InicioComponent,
-    PagesComponent,
-    FilesComponent,
-    CategoriesComponent,
-    ProductsComponent,
-    SettingComponent,
-    TemplatesComponent,
-    ShoppingComponent,
-    ShopcartComponent,
-    UsermanageComponent,
-    PlanmanageComponent,
-    TemplatemanageComponent
+    FooterComponent
   ],
   imports: [
     BrowserModule,
