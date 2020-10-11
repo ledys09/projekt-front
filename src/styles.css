@@ -1,8 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
 body {
-    background: #202060;
-    color: white;
+    background: #202060 !important;
+    color: white !important;
     margin-bottom: 100px;
 }
 
@@ -44,4 +44,14 @@ body {
 
 .container {
     margin-top: 50px;
+}
+
+.dash {
+    color: white;
+    background-color: #202060;
+}
+
+.side {
+    background: #b030b0 !important;
+    color: white !important;
 }
