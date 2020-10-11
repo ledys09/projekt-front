@@ -2,7 +2,6 @@
 
 body {
     background: #202060 !important;
-    color: white !important;
     margin-bottom: 100px;
 }
 
@@ -44,6 +43,7 @@ body {
 
 .container {
     margin-top: 50px;
+    color: white !important;
 }
 
 .dash {
