@@ -1048,6 +1048,10 @@ sidebar navigation
     display: block;
 }
 
+.collapse:not(.show) {
+    display: block !important;
+}
+
 .sidebar-nav {
     background: #fff;
     padding: 15px 0 0 0px;

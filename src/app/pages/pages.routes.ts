@@ -2,28 +2,38 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { FilesComponent } from './files/files.component';
+import { FilesComponent } from './enterprise-area/files/files.component';
 import { ProgressComponent } from './progress/progress.component';
 import { PagesComponent } from './pages.component';
+import { PagesEComponent } from './enterprise-area/pages-e/pages-e.component';
+import { CategoriesComponent } from './enterprise-area/categories/categories.component';
+import { ProductsComponent } from './enterprise-area/products/products.component';
 
 
-const pagesRoutes: Routes = [
-    { path: 'pages',
+const routes: Routes = [
+    { path: '',
     component: PagesComponent,
     children: [
       { path: 'progress', component: ProgressComponent },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'files', component: FilesComponent },
-      { path: '**', pathMatch: 'full', redirectTo: 'dashboard'}
+      { path: 'pages', component: PagesEComponent},
+      { path: 'categories', component: CategoriesComponent },
+      { path: 'products', component: ProductsComponent },
+      { path: '', pathMatch: 'full', redirectTo: '/dashboard'}
     ]
-  },
+  }
 ];
 
-/* export const PAGES_ROUTES = RouterModule.forChild( pagesRoutes);
+/* export const PAGES_ROUTES = RouterModule.forChild( routes);
  */
 
 @NgModule({
-    imports: [RouterModule.forRoot(pagesRoutes)],
+    imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
   })
-  export class PAGES_ROUTES { }
+  export class PagesRoutingModule { }
+
+
+
+  

@@ -1,0 +1,13 @@
+li,
+a {
+    color: #ffffff !important;
+}
+
+.hide-menu {
+    padding: 20px !important;
+    cursor: pointer;
+}
+
+.hide {
+    cursor: pointer;
+}

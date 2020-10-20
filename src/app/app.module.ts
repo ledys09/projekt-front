@@ -5,6 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 
+//   Modulos
+import { PagesModule } from './pages/pages.module';
+
 
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
@@ -15,14 +18,9 @@ import { RegisterClientComponent } from './register/client/register-client.compo
 import { RegisterEnterpriseComponent } from './register/enterprise/register-enterprise.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { FilesComponent } from './pages/files/files.component';
-import { PagesComponent } from './pages/pages.component';
-import { ProgressComponent } from './pages/progress/progress.component';
-import { BreadcrumbsComponent } from './shared/breadcrumbs/breadcrumbs.component';
-import { HeaderComponent } from './shared/header/header.component';
-import { PagenofoundComponent } from './shared/pagenofound/pagenofound.component';
-import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+
 
 
 @NgModule({
@@ -36,20 +34,15 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
     RegisterClientComponent,
     RegisterEnterpriseComponent,
     FooterComponent,
-    NavbarComponent,
-    PagesComponent,
-    DashboardComponent,
-    ProgressComponent,
-    FilesComponent,
-    PagenofoundComponent,
-HeaderComponent,
-SidebarComponent,
-BreadcrumbsComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     HttpClientModule,
+    PagesModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
