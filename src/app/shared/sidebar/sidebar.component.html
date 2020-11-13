@@ -11,20 +11,21 @@
                     <a class=" waves-effect side" href="#" aria-expanded="false"><img src="../assets/images/users/profile.png" alt="user" /><span class="hide-menu">Nombre Empresa </span></a>
                 </li>
                 <hr>
-                <li> <span class="hide-menu">Inicio</span></li>
+                <li> <span class="hide-menu"><a routerLink='/dashboard' routerLinkActive="active" class="hide">Inicio </a></span></li>
                 <li> <span class="hide-menu">Plan: Gratuito</span></li>
 
                 <li class="nav-devider"></li>
-                <li> <span class="hide-menu">Mi sitio web</span>
+                <li *ngFor="let menu of _sidebarService.menu">
                     <ul aria-expanded="false" class="collapse side">
-                        <li><a routerLink='/pages' routerLinkActive="active" class="hide">Páginas </a></li>
-                        <li><a routerLink='/files' routerLinkActive="active" class="hide">Archivos</a></li>
-                        <li><a routerLink='/categories' routerLinkActive="active" class="hide">Categorias</a></li>
-                        <li><a routerLink='/products' routerLinkActive="active" class="hide">Producto</a></li>
+                        <li> {{menu.titulo}} </li>
+                        <li *ngFor="let submenu of menu.submenu"><a [routerLink]="[submenu.url]" routerLinkActive="active" class="hide">{{submenu.titulo}} </a></li>
+                        <!-- <li><a routerLink='/files' routerLinkActive="active" class="hide">Archivos</a></li> -->
+                        <!-- <li><a routerLink='/categories' routerLinkActive="active" class="hide">Categorias</a></li> -->
+                        <!-- <li><a routerLink='/products' routerLinkActive="active" class="hide">Producto</a></li> -->
                     </ul>
                 </li>
-                <li> <span class="hide-menu">Temas</span></li>
-                <li> <span class="hide-menu">Configuración</span></li>
+                <li> <a routerLink='/templantes' routerLinkActive="active" class="hide">Temas </a></li>
+                <li> <a routerLink='/setting' routerLinkActive="active" class="hide">Configuración </a></li>
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

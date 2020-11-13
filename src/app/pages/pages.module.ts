@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ProgressComponent } from './progress/progress.component';
+// import { ProgressComponent } from './progress/progress.component';
 import { FilesComponent } from './enterprise-area/files/files.component';
 import { PagesEComponent } from './enterprise-area/pages-e/pages-e.component';
 import { CategoriesComponent } from './enterprise-area/categories/categories.component';
@@ -19,7 +19,7 @@ import { ProductsComponent } from './enterprise-area/products/products.component
   declarations: [
     PagesComponent,
     DashboardComponent,
-    ProgressComponent,
+  //  ProgressComponent,
     FilesComponent,
     PagesEComponent,
     CategoriesComponent,
@@ -28,7 +28,7 @@ import { ProductsComponent } from './enterprise-area/products/products.component
   exports: [
     PagesComponent,
     DashboardComponent,
-    ProgressComponent,
+  //  ProgressComponent,
     FilesComponent,
   ],
   imports: [
