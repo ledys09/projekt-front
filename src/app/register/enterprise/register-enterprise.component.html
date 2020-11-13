@@ -4,43 +4,43 @@
     <div class="row">
 
         <div class="abs-center col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            <form class="formulario animated fadeInLeft">
+            <form ngNaviteValidate [formGroup]="forma" (ngSubmit)="registrarEmpresa()" class="formulario animated fadeInLeft">
                 <h2 style="text-align: center; margin-bottom: 5px;">Registro</h2>
                 <div class="form-row">
                     <div class="form-group col-md-12">
                         <label for="inputEmail4">Nombre de la Empresa</label>
-                        <input type="text" class="form-control" id="inputEmail4">
+                        <input formControlName="nombreEmpresa" name="nombreEmpresa" type="text" class="form-control">
                     </div>
                     <div class="form-group col-md-12">
                         <label for="inputPassword4">Nombre del propietario</label>
-                        <input type="text" class="form-control" id="inputPassword4">
+                        <input formControlName="nombre" name="nombre" type="text" class="form-control">
                     </div>
                     <div class="form-group col-md-12">
                         <label for="inputPassword4">Dirección</label>
-                        <input type="text" class="form-control" id="inputPassword4">
+                        <input formControlName="direccion" name="direccion" type="text" class="form-control">
                     </div>
                     <div class="form-group col-md-12">
                         <label for="inputEmail4">Correo eléctronico</label>
-                        <input type="email" class="form-control" id="inputEmail4">
+                        <input formControlName="correo" name="correo" type="email" class="form-control">
                     </div>
                     <div class="form-group col-md-12">
                         <label for="inputPassword4">Contraseña</label>
-                        <input type="password" class="form-control" id="inputPassword4">
+                        <input formControlName="contrasena" name="contrasena" type="password" class="form-control">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputEmail4">Teléfono</label>
-                        <input type="text" class="form-control" id="inputEmail4">
+                        <input formControlName="telefono" name="telefono" type="text" class="form-control">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputState">Plan</label>
-                        <select id="inputState" class="form-control" style="width: auto;">
-                          <option selected>Gratuito</option>
-                          <option>Medio</option>
-                          <option>Completo</option>
+                        <select formControlName="plan" name="plan" class="form-control" style="width: auto;">
+                          <option value="gratuito" selected>Gratuito</option>
+                          <option value="medio">Medio</option>
+                          <option value="completo">Completo</option>
                         </select>
                     </div>
                 </div>
-                <button type="button" class="btn btn-primary iniciar">Registrar</button>
+                <button type="submit" class="btn btn-primary iniciar">Registrar</button>
 
             </form>
         </div>
