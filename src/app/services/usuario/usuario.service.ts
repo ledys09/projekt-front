@@ -4,16 +4,63 @@ import { Usuario } from '../../models/usuario/usuario.model';
 import { URL_SERVICES } from '../../config/config';
 import { map } from 'rxjs/operators';
 import swal from 'sweetalert';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
 
-  constructor(
-    public http: HttpClient
-  ) {
+  usuario: string;
+  token: string;
+  role: string;
+  id: string;
+
+  constructor( public http: HttpClient,
+               public router: Router ) {
     console.log('servicio usuario');
+    this.cargarStorage();
+  }
+
+  guardarStorage(id: string, token: string, usuario: string, role: string){
+    localStorage.setItem('id', id);
+    localStorage.setItem('token', token);
+    localStorage.setItem('usuario', usuario);
+    localStorage.setItem('role', role);
+    this.usuario = usuario;
+    this.token = token;
+    this.role = role;
+    this.id = id;
+  }
+
+  cargarStorage(){
+    if(localStorage.getItem('token')){
+      this.token = localStorage.getItem('token');
+      this.usuario = localStorage.getItem('usuario');
+      this.role = localStorage.getItem('role');
+      this.id = localStorage.getItem('id');
+    }else{
+      this.token = '';
+      this.usuario = null;
+      this.role = null;
+      this.id = null;
+  }
+    }
+
+  logueoExists(){
+    return (this.token !== '') ? true : false;
+  }
+
+  logout(){
+    this.token = '';
+    this.usuario = null;
+    this.role = null;
+    this.id = null;
+    localStorage.removeItem('token');
+    localStorage.removeItem('usuario');
+    localStorage.removeItem('role');
+    localStorage.removeItem('id');
+    this.router.navigate(['/login']);
   }
 
   crearUsuarioCliente(usuario: Usuario){
@@ -46,10 +93,7 @@ export class UsuarioService {
     const URL = URL_SERVICES + '/api/login';
     return this.http.post(URL, usuario)
     .pipe(map((resp: any) => {
-      localStorage.setItem('id', resp.id);
-      localStorage.setItem('token', resp.token);
-      localStorage.setItem('usuario', resp.usuario);
-      localStorage.setItem('role', resp.role);
+      this.guardarStorage(resp.id, resp.token, resp.usuario, resp. role);
       return true;
     }));
   }

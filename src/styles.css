@@ -55,3 +55,7 @@ body {
     background: #b030b0 !important;
     color: white !important;
 }
+
+.pointer {
+    cursor: pointer;
+}

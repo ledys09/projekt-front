@@ -8,11 +8,13 @@ import { PagesComponent } from './pages.component';
 import { PagesEComponent } from './enterprise-area/pages-e/pages-e.component';
 import { CategoriesComponent } from './enterprise-area/categories/categories.component';
 import { ProductsComponent } from './enterprise-area/products/products.component';
+import { LoginGuard } from '../services/guards/login.guard';
 
 
 const routes: Routes = [
     { path: '',
     component: PagesComponent,
+    canActivate: [ LoginGuard],
     children: [
       { path: 'progress', component: ProgressComponent },
       { path: 'dashboard', component: DashboardComponent },
@@ -35,5 +37,3 @@ const routes: Routes = [
   export class PagesRoutingModule { }
 
 
-
-  

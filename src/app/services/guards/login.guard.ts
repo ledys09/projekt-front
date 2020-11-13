@@ -1,15 +1,23 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import { CanActivate, Router } from '@angular/router';
+import { UsuarioService } from '../usuario/usuario.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginGuard implements CanActivate {
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  // tslint:disable-next-line: typedef
+
+  constructor( public _usuarioService: UsuarioService,
+               public router: Router ){}
+  canActivate(){
+    if (this._usuarioService.logueoExists()){
+      console.log('pasó el guard');
+    }else{
+      console.log('debes loguearte');
+      this.router.navigate(['/login']);
+      return false;
+    }
     return true;
   }
-
 }
