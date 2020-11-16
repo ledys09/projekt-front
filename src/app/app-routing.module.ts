@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'enterprises', component: EnterprisesComponent },
   { path: 'about', component: AboutComponent },
+  { path: '', pathMatch: 'full', redirectTo: '/home'},
   { path: '**', component: PagenofoundComponent},
 ];
 

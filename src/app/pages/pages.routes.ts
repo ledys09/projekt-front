@@ -9,6 +9,9 @@ import { PagesEComponent } from './enterprise-area/pages-e/pages-e.component';
 import { CategoriesComponent } from './enterprise-area/categories/categories.component';
 import { ProductsComponent } from './enterprise-area/products/products.component';
 import { LoginGuard } from '../services/guards/login.guard';
+import { ProfileComponent } from './profile/profile.component';
+import { TemplatesComponent } from './enterprise-area/templates/templates.component';
+import { SettingComponent } from './enterprise-area/setting/setting.component';
 
 
 const routes: Routes = [
@@ -17,12 +20,15 @@ const routes: Routes = [
     canActivate: [ LoginGuard],
     children: [
   //    { path: 'progress', component: ProgressComponent },
-      { path: 'dashboard', component: DashboardComponent },
-      { path: 'files', component: FilesComponent },
-      { path: 'pages', component: PagesEComponent},
-      { path: 'categories', component: CategoriesComponent },
-      { path: 'products', component: ProductsComponent },
-      { path: '', pathMatch: 'full', redirectTo: '/home'}
+      { path: 'dashboard', component: DashboardComponent, data: { titulo: 'Inicio'} },
+      { path: 'files', component: FilesComponent, data: { titulo: 'Archivos'} },
+      { path: 'pages', component: PagesEComponent, data: { titulo: 'Paginas'} },
+      { path: 'categories', component: CategoriesComponent, data: { titulo: 'Categorias'} },
+      { path: 'products', component: ProductsComponent, data: { titulo: 'Productos'} },
+      { path: 'templates', component: TemplatesComponent, data: { titulo: 'Temas'} },
+      { path: 'setting', component: SettingComponent, data: { titulo: 'Configuración'} },
+      { path: 'profile', component: ProfileComponent, data: { titulo: 'Perfil'} },
+      { path: '', pathMatch: 'full', redirectTo: '/dashboard'}
     ]
   }
 ];

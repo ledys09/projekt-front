@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class UsuarioService {
-
-  usuario: string;
+ 
+  usuario: Usuario;
   token: string;
   role: string;
   id: string;
@@ -22,10 +22,10 @@ export class UsuarioService {
     this.cargarStorage();
   }
 
-  guardarStorage(id: string, token: string, usuario: string, role: string){
+  guardarStorage(id: string, token: string, usuario: Usuario, role: string){
     localStorage.setItem('id', id);
     localStorage.setItem('token', token);
-    localStorage.setItem('usuario', usuario);
+    localStorage.setItem('usuario', JSON.stringify(usuario));
     localStorage.setItem('role', role);
     this.usuario = usuario;
     this.token = token;
@@ -36,7 +36,7 @@ export class UsuarioService {
   cargarStorage(){
     if(localStorage.getItem('token')){
       this.token = localStorage.getItem('token');
-      this.usuario = localStorage.getItem('usuario');
+      this.usuario = JSON.parse(localStorage.getItem('usuario'));
       this.role = localStorage.getItem('role');
       this.id = localStorage.getItem('id');
     }else{
@@ -97,5 +97,6 @@ export class UsuarioService {
       return true;
     }));
   }
+  
 }
 

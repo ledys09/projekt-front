@@ -6,6 +6,7 @@ import { PagenofoundComponent } from './pagenofound/pagenofound.component';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
+import { PipesModule } from '../pipes/pipes.module';
 
 
 
@@ -24,7 +25,8 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
   ],
   imports: [
     RouterModule,
-    CommonModule
+    CommonModule,
+    PipesModule
   ]
 })
 export class SharedModule { }
