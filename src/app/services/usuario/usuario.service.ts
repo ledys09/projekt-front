@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Usuario } from '../../models/usuario/usuario.model';
 import { URL_SERVICES } from '../../config/config';
@@ -15,6 +15,7 @@ export class UsuarioService {
   token: string;
   role: string;
   id: string;
+  
 
   constructor( public http: HttpClient,
                public router: Router ) {
@@ -80,6 +81,21 @@ export class UsuarioService {
   crearUsuarioAdmin(usuario: Usuario){
     const URL = URL_SERVICES + '/api/user/registeradmin';
     return this.http.post(URL, usuario);
+  }
+
+  actualizarUsuario(usuario: Usuario){
+    
+  const headers = new HttpHeaders ({
+    'token': this.token
+  });
+  const URL = URL_SERVICES + `/api/user/${this.id}`;
+  return this.http.put(URL, usuario, {headers})
+  .pipe(map((resp: any) => {
+    // this.usuario = resp.usuario;
+    this.guardarStorage(this.id, this.token, resp.UsuarioDB, this.role)
+    swal('Usuario actualizado', usuario.nombre, 'success' );
+    return true
+  }))
   }
 
   login(usuario: Usuario, recordar: boolean = false){

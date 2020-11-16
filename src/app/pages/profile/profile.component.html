@@ -1,1 +1,91 @@
-<p>profile works!</p>
+<div class="container-fluid">
+    <div class="row animated fadeIn">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <form ngNativeValidate #f="ngForm" (ngSubmit)="actualizar(f.value)">
+                        <div class="form-body">
+                            <h3 class="card-title">Información Personal</h3>
+                            <hr>
+                            <div class="row p-t-20">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Nombre propietario</label>
+                                        <input [ngModel]="usuario.nombre" name="nombre" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Nombre empresa</label>
+                                        <input [ngModel]="usuario.nombreEmpresa" name="nombreEmpresa" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <!--/span-->
+                            </div>
+                            <!--/row-->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Plan</label>
+                                        <select class="form-control custom-select">
+                                            <option  value="{{usuario.plan}}">{{usuario.plan}}</option>
+                                            <option value="">Medio</option>
+                                            <option value="">Completo</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Telefono</label>
+                                        <input [ngModel]="usuario.telefono" name="telefono" type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/row-->
+                            <!--/row-->
+                            <hr>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label>Correo</label>
+                                        <input [ngModel]="usuario.correo" name="correo" type="email" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-12 ">
+                                    <div class="form-group">
+                                        <label>Dirección</label>
+                                        <input [ngModel]="usuario.direccion" name="direccion" type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--/row-->
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" style="width: auto !important;" class="btn btn-success iniciar"> 
+                                <i class="fa fa-save"></i> Guardar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Fotografia
+                        <hr>
+                    </h3>
+                    <h6 class="card-subtitle"></h6>
+                    <img src="" alt="changePhoto"><br>
+                    <input type="file" name="" id=""> <br> <br> <br>
+                    <div class="form-actions">
+                        <button type="button" style="width: auto !important;" class="btn btn-success iniciar"> <i class="fa fa-save"></i> Actualizar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

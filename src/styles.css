@@ -2,7 +2,7 @@
 
 body {
     background: #202060 !important;
-    margin-bottom: 100px;
+    height: 900px !important;
 }
 
 .btn {
@@ -62,4 +62,8 @@ body {
 
 .active {
     background-color: transparent !important;
+}
+
+.btn:hover {
+    background-color: #602080 !important;
 }

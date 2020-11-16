@@ -17,6 +17,7 @@ import { ProductsComponent } from './enterprise-area/products/products.component
 import { ProfileComponent } from './profile/profile.component';
 import { TemplatesComponent } from './enterprise-area/templates/templates.component';
 import { SettingComponent } from './enterprise-area/setting/setting.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -39,10 +40,11 @@ import { SettingComponent } from './enterprise-area/setting/setting.component';
     FilesComponent,
   ],
   imports: [
+    CommonModule,
     SharedModule,
     PagesRoutingModule,
-    CommonModule,
-    PipesModule
+    PipesModule,
+    FormsModule
   ]
 })
 export class PagesModule { }
