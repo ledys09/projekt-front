@@ -8,7 +8,7 @@
         <nav class="sidebar-nav side">
             <ul id="sidebarnav">
                 <li class="user-profile">
-                    <a class=" waves-effect side" href="#" aria-expanded="false"><img src="../assets/images/users/profile.png" alt="user" /><span class="hide-menu">Nombre Empresa </span></a>
+                    <a class=" waves-effect side" href="#" aria-expanded="false"><img [src]="usuario.foto | img" alt="user" /><span class="hide-menu">{{usuario.nombreEmpresa}} </span></a>
                 </li>
                 <hr>
                 <li> <span class="hide-menu"><a routerLink='/dashboard' routerLinkActive="active" class="hide">Inicio </a></span></li>

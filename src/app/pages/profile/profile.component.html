@@ -63,7 +63,7 @@
                             <!--/row-->
                         </div>
                         <div class="form-actions">
-                            <button type="submit" style="width: auto !important;" class="btn btn-success iniciar"> 
+                            <button type="submit" style="width: auto !important;" class="btn iniciar"> 
                                 <i class="fa fa-save"></i> Guardar
                             </button>
                         </div>
@@ -79,10 +79,12 @@
                         <hr>
                     </h3>
                     <h6 class="card-subtitle"></h6>
-                    <img src="" alt="changePhoto"><br>
-                    <input type="file" name="" id=""> <br> <br> <br>
+                    <img *ngIf="!imgTemp" [src]="usuario.foto | img" class="w150">
+                    <img *ngIf="imgTemp" [src]="imgTemp" class="w150">
+                    <br> <br>
+                    <input type="file" (change)="seleccionImg( $event.target.files[0] )" name="" id=""> <br> <br> <br>
                     <div class="form-actions">
-                        <button type="button" style="width: auto !important;" class="btn btn-success iniciar"> <i class="fa fa-save"></i> Actualizar</button>
+                        <button type="button" (click)="cambiarImg()" [disabled]="!imgSubir" style="width: auto !important;" class="btn iniciar"> <i class="fa fa-save"></i> Actualizar</button>
                     </div>
                 </div>
             </div>

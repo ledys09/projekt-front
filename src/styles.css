@@ -67,3 +67,7 @@ body {
 .btn:hover {
     background-color: #602080 !important;
 }
+
+.w150 {
+    width: 150px;
+}

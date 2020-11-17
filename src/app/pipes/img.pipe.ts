@@ -6,14 +6,27 @@ import { URL_SERVICES } from '../config/config';
 })
 export class ImgPipe implements PipeTransform {
 
-  transform(img: string, ...args: unknown[]): unknown {
+  transform(img: string, tipo: string = 'enterprise'): any {
    
-    const url = URL_SERVICES + `/api/upload/perfil/`;
+    let url = URL_SERVICES + `/api/upload/perfil/`;
     if (!img){
       return url + 'nada';
-    } else {
-    return url + img;
-    }
-  }
+    } 
 
+    switch (tipo){
+      case 'client':
+        url += 'client/' + img;
+        break;
+        case 'enterprise':
+          url += 'enterprise/' + img;
+          break;
+          case 'admin':
+            url += 'admin/' + img;
+            break;
+            default:
+              console.log('no existr');
+              url += 'client/nada';
+    }
+    return url;
+  }
 }
