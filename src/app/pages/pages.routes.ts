@@ -12,6 +12,10 @@ import { LoginGuard } from '../services/guards/login.guard';
 import { ProfileComponent } from './profile/profile.component';
 import { TemplatesComponent } from './enterprise-area/templates/templates.component';
 import { SettingComponent } from './enterprise-area/setting/setting.component';
+import { PlansComponent } from './admin-area/plans/plans/plans.component';
+import { TemplatesAdminComponent } from './admin-area/templates-admin/templates-admin/templates-admin.component';
+import { UsersComponent } from './admin-area/users/users/users.component';
+import { EnterprisesAdminComponent } from './admin-area/enterprises-admin/enterprises-admin/enterprises-admin.component';
 
 
 const routes: Routes = [
@@ -19,7 +23,7 @@ const routes: Routes = [
     component: PagesComponent,
     canActivate: [ LoginGuard],
     children: [
-  //    { path: 'progress', component: ProgressComponent },
+      // enterprise-area
       { path: 'dashboard', component: DashboardComponent, data: { titulo: 'Inicio'} },
       { path: 'files', component: FilesComponent, data: { titulo: 'Archivos'} },
       { path: 'pages', component: PagesEComponent, data: { titulo: 'Paginas'} },
@@ -28,6 +32,12 @@ const routes: Routes = [
       { path: 'templates', component: TemplatesComponent, data: { titulo: 'Plantillas'} },
       { path: 'setting', component: SettingComponent, data: { titulo: 'Configuración'} },
       { path: 'profile', component: ProfileComponent, data: { titulo: 'Perfil'} },
+      // admin-area
+      { path: 'admin-plan', component: PlansComponent, data: { titulo: 'Planes de pago'} },
+      { path: 'admin-template', component: TemplatesAdminComponent, data: { titulo: 'Plantillas'} },
+      { path: 'admin-user', component: UsersComponent, data: { titulo: 'Usuarios'} },
+      { path: 'admin-enterprise', component: EnterprisesAdminComponent, data: { titulo: 'Empresas'} },
+
       { path: '', pathMatch: 'full', redirectTo: '/dashboard'}
     ]
   }

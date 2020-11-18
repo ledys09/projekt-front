@@ -1,0 +1,8 @@
+.enlaces {
+    text-decoration: none;
+    color: #602080;
+}
+
+a:focus {
+    font-weight: bold;
+}

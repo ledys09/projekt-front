@@ -15,9 +15,13 @@ import { PagesEComponent } from './enterprise-area/pages-e/pages-e.component';
 import { CategoriesComponent } from './enterprise-area/categories/categories.component';
 import { ProductsComponent } from './enterprise-area/products/products.component';
 import { ProfileComponent } from './profile/profile.component';
-import { TemplatesComponent } from './enterprise-area/templates/templates.component';
 import { SettingComponent } from './enterprise-area/setting/setting.component';
+import { TemplatesComponent } from './enterprise-area/templates/templates.component';
 import { FormsModule } from '@angular/forms';
+import { PlansComponent } from './admin-area/plans/plans/plans.component';
+import { TemplatesAdminComponent } from './admin-area/templates-admin/templates-admin/templates-admin.component';
+import { UsersComponent } from './admin-area/users/users/users.component';
+import { EnterprisesAdminComponent } from './admin-area/enterprises-admin/enterprises-admin/enterprises-admin.component';
 
 
 @NgModule({
@@ -31,7 +35,11 @@ import { FormsModule } from '@angular/forms';
     ProductsComponent,
     ProfileComponent,
     TemplatesComponent,
-    SettingComponent
+    SettingComponent,
+    PlansComponent,
+    TemplatesAdminComponent,
+    UsersComponent,
+    EnterprisesAdminComponent
   ],
   exports: [
     PagesComponent,

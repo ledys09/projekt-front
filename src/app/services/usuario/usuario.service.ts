@@ -133,7 +133,16 @@ export class UsuarioService {
     })
     .catch(resp => {
       console.log(resp);
-    })
+    });
+  }
+
+  cargarUsuarios(role: string){
+    const headers = new HttpHeaders ({
+      'token': this.token
+    });
+    const URL = URL_SERVICES + `/api/user/users/${role}`;
+    return this.http.get(URL, {headers});
+
   }
 }
 

@@ -7,7 +7,6 @@ import { URL_SERVICES } from '../config/config';
 export class ImgPipe implements PipeTransform {
 
   transform(img: string, tipo: string = 'enterprise'): any {
-   
     let url = URL_SERVICES + `/api/upload/perfil/`;
     if (!img){
       return url + 'nada';

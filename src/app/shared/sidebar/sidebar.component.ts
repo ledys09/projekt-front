@@ -10,6 +10,7 @@ import { UsuarioService } from '../../services/usuario/usuario.service';
 })
 export class SidebarComponent implements OnInit {
   usuario: Usuario;
+  tipoUser: string;
 
   constructor(public _sidebarService: SidebarService,
               public _usuarioService: UsuarioService) { }
@@ -18,7 +19,20 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
     this.usuario = this._usuarioService.usuario;
     this._sidebarService.cargarMenu();
+    this.cargarTipo();
+  }
 
+  cargarTipo(){
+    const tipo = this._usuarioService.role;
+    if ( tipo === 'client_role'){
+      return this.tipoUser = 'client';
+    }
+    if ( tipo === 'admin_role'){
+      return this.tipoUser = 'admin';
+    }
+    if ( tipo === 'enteprise_role'){
+      return this.tipoUser = 'enterprise';
+    }
   }
 
 }

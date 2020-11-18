@@ -8,7 +8,14 @@
         <nav class="sidebar-nav side">
             <ul id="sidebarnav">
                 <li class="user-profile">
-                    <a class=" waves-effect side" href="#" aria-expanded="false"><img [src]="usuario.foto | img" alt="user" /><span class="hide-menu">{{usuario.nombreEmpresa}} </span></a>
+                    <a *ngIf="usuario.role === 'enterprise_role'" class=" waves-effect side" aria-expanded="false">
+                        <img [src]="usuario.foto | img" alt="user" />
+                        <span class="hide-menu">{{usuario.nombreEmpresa}} </span>
+                    </a>
+                    <a *ngIf="usuario.role != 'enterprise_role'" class=" waves-effect side" aria-expanded="false">
+                        <img [src]="usuario.foto | img" alt="user" />
+                        <span class="hide-menu">{{usuario.nombre}} </span>
+                    </a>
                 </li>
                 <hr>
                 <li class="nav-devider"></li>
