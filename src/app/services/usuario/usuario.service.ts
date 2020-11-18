@@ -11,7 +11,8 @@ import { UploadService } from '../upload/upload.service';
   providedIn: 'root'
 })
 export class UsuarioService {
- 
+  
+  menu: any = [];
   usuario: Usuario;
   token: string;
   role: string;
@@ -25,11 +26,13 @@ export class UsuarioService {
     this.cargarStorage();
   }
 
-  guardarStorage(id: string, token: string, usuario: Usuario, role: string){
+  guardarStorage(id: string, token: string, usuario: Usuario, role: string, menu: any){
     localStorage.setItem('id', id);
     localStorage.setItem('token', token);
     localStorage.setItem('usuario', JSON.stringify(usuario));
     localStorage.setItem('role', role);
+    localStorage.setItem('menu', JSON.stringify(menu));
+    this.menu = menu;
     this.usuario = usuario;
     this.token = token;
     this.role = role;
@@ -40,9 +43,11 @@ export class UsuarioService {
     if(localStorage.getItem('token')){
       this.token = localStorage.getItem('token');
       this.usuario = JSON.parse(localStorage.getItem('usuario'));
+      this.menu = JSON.parse(localStorage.getItem('menu'));
       this.role = localStorage.getItem('role');
       this.id = localStorage.getItem('id');
     }else{
+      this.menu = null;
       this.token = '';
       this.usuario = null;
       this.role = null;
@@ -57,10 +62,12 @@ export class UsuarioService {
   logout(){
     this.token = '';
     this.usuario = null;
+    this.menu = null;
     this.role = null;
     this.id = null;
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
+    localStorage.removeItem('menu');
     localStorage.removeItem('role');
     localStorage.removeItem('id');
     this.router.navigate(['/login']);
@@ -93,7 +100,7 @@ export class UsuarioService {
   return this.http.put(URL, usuario, {headers})
   .pipe(map((resp: any) => {
     // this.usuario = resp.usuario;
-    this.guardarStorage(this.id, this.token, resp.UsuarioDB, this.role)
+    this.guardarStorage(this.id, this.token, resp.UsuarioDB, this.role, resp.menu)
     swal('Usuario actualizado', usuario.nombre, 'success' );
     return true;
   }));
@@ -110,7 +117,8 @@ export class UsuarioService {
     const URL = URL_SERVICES + '/api/login';
     return this.http.post(URL, usuario)
     .pipe(map((resp: any) => {
-      this.guardarStorage(resp.id, resp.token, resp.usuario, resp. role);
+      this.guardarStorage(resp.id, resp.token, resp.usuario, resp. role, resp.menu);
+      // console.log(resp);
       return true;
     }));
   }
@@ -121,10 +129,10 @@ export class UsuarioService {
     console.log(resp);
     this.usuario.foto = resp.data.foto;
     swal('Imagen actualizada', this.usuario.nombre, 'success');
-    this.guardarStorage(id, this.token, this.usuario, this.role);
+    this.guardarStorage(id, this.token, this.usuario, this.role, resp.menu);
     })
     .catch(resp => {
-      console.log(resp)
+      console.log(resp);
     })
   }
 }

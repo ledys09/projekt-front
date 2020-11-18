@@ -11,21 +11,15 @@
                     <a class=" waves-effect side" href="#" aria-expanded="false"><img [src]="usuario.foto | img" alt="user" /><span class="hide-menu">{{usuario.nombreEmpresa}} </span></a>
                 </li>
                 <hr>
-                <li> <span class="hide-menu"><a routerLink='/dashboard' routerLinkActive="active" class="hide">Inicio </a></span></li>
-                <li> <span class="hide-menu">Plan: Gratuito</span></li>
-
                 <li class="nav-devider"></li>
                 <li *ngFor="let menu of _sidebarService.menu">
                     <ul aria-expanded="false" class="collapse side">
-                        <li> {{menu.titulo}} </li>
+                        <li class="pointer" [routerLink]="[menu.url]" routerLinkActive="active">
+                            <a></a>{{menu.titulo}} </li>
                         <li *ngFor="let submenu of menu.submenu"><a [routerLink]="[submenu.url]" routerLinkActive="active" class="hide">{{submenu.titulo}} </a></li>
-                        <!-- <li><a routerLink='/files' routerLinkActive="active" class="hide">Archivos</a></li> -->
-                        <!-- <li><a routerLink='/categories' routerLinkActive="active" class="hide">Categorias</a></li> -->
-                        <!-- <li><a routerLink='/products' routerLinkActive="active" class="hide">Producto</a></li> -->
                     </ul>
                 </li>
-                <li> <a routerLink='/templates' routerLinkActive="active" class="hide"> Temas </a></li>
-                <li> <a routerLink='/setting' routerLinkActive="active" class="hide">Configuración </a></li>
+
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

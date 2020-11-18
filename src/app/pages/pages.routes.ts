@@ -25,7 +25,7 @@ const routes: Routes = [
       { path: 'pages', component: PagesEComponent, data: { titulo: 'Paginas'} },
       { path: 'categories', component: CategoriesComponent, data: { titulo: 'Categorias'} },
       { path: 'products', component: ProductsComponent, data: { titulo: 'Productos'} },
-      { path: 'templates', component: TemplatesComponent, data: { titulo: 'Temas'} },
+      { path: 'templates', component: TemplatesComponent, data: { titulo: 'Plantillas'} },
       { path: 'setting', component: SettingComponent, data: { titulo: 'Configuración'} },
       { path: 'profile', component: ProfileComponent, data: { titulo: 'Perfil'} },
       { path: '', pathMatch: 'full', redirectTo: '/dashboard'}
