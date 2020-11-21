@@ -13,17 +13,17 @@ export class ImgPipe implements PipeTransform {
     } 
 
     switch (tipo){
-      case 'client':
+      case 'client_role':
         url += 'client/' + img;
         break;
-        case 'enterprise':
+        case 'enterprise_role':
           url += 'enterprise/' + img;
           break;
-          case 'admin':
+          case 'admin_role':
             url += 'admin/' + img;
             break;
             default:
-              console.log('no existr');
+              console.log('no existe');
               url += 'client/nada';
     }
     return url;

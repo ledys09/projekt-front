@@ -9,7 +9,8 @@ export class Usuario {
       public nombreEmpresa?: string,
       public plan?: string,
       public foto?: string,
-      public role?: string
+      public role?: string,
+      public _id?:  string 
   ) {
 
   }

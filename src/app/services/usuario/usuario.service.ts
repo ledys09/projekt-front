@@ -11,7 +11,7 @@ import { UploadService } from '../upload/upload.service';
   providedIn: 'root'
 })
 export class UsuarioService {
-  
+  tipo: string;
   menu: any = [];
   usuario: Usuario;
   token: string;
@@ -88,8 +88,11 @@ export class UsuarioService {
   }
 
   crearUsuarioAdmin(usuario: Usuario){
+    const headers = new HttpHeaders ({
+      'token': this.token
+    });
     const URL = URL_SERVICES + '/api/user/registeradmin';
-    return this.http.post(URL, usuario);
+    return this.http.post(URL, usuario, {headers});
   }
 
   actualizarUsuario(usuario: Usuario){
@@ -100,11 +103,12 @@ export class UsuarioService {
   return this.http.put(URL, usuario, {headers})
   .pipe(map((resp: any) => {
     // this.usuario = resp.usuario;
-    this.guardarStorage(this.id, this.token, resp.UsuarioDB, this.role, resp.menu)
+    this.guardarStorage(this.id, this.token, resp.UsuarioDB, this.role, resp.menu);
     swal('Usuario actualizado', usuario.nombre, 'success' );
     return true;
   }));
   }
+
 
   login(usuario: Usuario, recordar: boolean = false){
 
@@ -124,7 +128,17 @@ export class UsuarioService {
   }
 
   cambiarImg( archivo: File, id: string){
-    this._uploadService.subirArchivo(archivo, 'enterprise', id)
+   
+    if (this.role === 'admin_role'){
+      this.tipo = 'admin';
+    }
+    if(this.role === 'client_role'){
+      this.tipo = 'client';
+    }
+    if( this.role === 'enterprise_role'){
+      this.tipo = 'enterprise';
+    }
+    this._uploadService.subirArchivo(archivo, this.tipo, id)
     .then((resp: any) => {
     console.log(resp);
     this.usuario.foto = resp.data.foto;
@@ -136,13 +150,43 @@ export class UsuarioService {
     });
   }
 
-  cargarUsuarios(role: string){
+  cargarUsuarios(role: string, desde: number = 0){
     const headers = new HttpHeaders ({
       'token': this.token
     });
-    const URL = URL_SERVICES + `/api/user/users/${role}`;
+    const URL = URL_SERVICES + `/api/user/users/${role}?desde=${desde}`;
     return this.http.get(URL, {headers});
-
   }
+
+  buscarUsuario( termino: string){
+    const headers = new HttpHeaders ({
+      'token': this.token
+    });
+    const URL = URL_SERVICES + `/api/user/search/${termino}`;
+    return this.http.get(URL, {headers})
+    .pipe(map ((resp: any) => resp.data ) );
+  }
+
+
+  eliminarUsuario(usuario: Usuario){
+    const headers = new HttpHeaders ({
+      'token': this.token
+    });
+    const URL = URL_SERVICES + `/api/user/${usuario._id}`;
+    return this.http.delete(URL, {headers})
+    .pipe(map( (usuario: any) => usuario.UsuarioDB) );
+  }
+
+  actualizarUsuarioAdmin(usuario: Usuario){
+    const headers = new HttpHeaders ({
+      'token': this.token
+    });
+    const URL = URL_SERVICES + `/api/user/${usuario._id}`;
+    return this.http.put(URL, usuario, {headers});
+    }
+
+
 }
+
+
 

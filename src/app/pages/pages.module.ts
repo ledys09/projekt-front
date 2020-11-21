@@ -22,6 +22,7 @@ import { PlansComponent } from './admin-area/plans/plans/plans.component';
 import { TemplatesAdminComponent } from './admin-area/templates-admin/templates-admin/templates-admin.component';
 import { UsersComponent } from './admin-area/users/users/users.component';
 import { EnterprisesAdminComponent } from './admin-area/enterprises-admin/enterprises-admin/enterprises-admin.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { EnterprisesAdminComponent } from './admin-area/enterprises-admin/enterp
     SharedModule,
     PagesRoutingModule,
     PipesModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ]
 })
 export class PagesModule { }

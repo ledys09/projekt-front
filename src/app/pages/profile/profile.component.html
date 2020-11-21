@@ -80,7 +80,7 @@
                         <hr>
                     </h3>
                     <h6 class="card-subtitle"></h6>
-                    <img *ngIf="!imgTemp" [src]="usuario.foto | img" class="w150">
+                    <img *ngIf="!imgTemp" [src]="usuario.foto | img:usuario.role" class="w150">
                     <img *ngIf="imgTemp" [src]="imgTemp" class="w150">
                     <br> <br>
                     <input type="file" (change)="seleccionImg( $event.target.files[0] )" name="" id=""> <br> <br> <br>
