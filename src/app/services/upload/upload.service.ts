@@ -30,19 +30,6 @@ export class UploadService {
       };
       const URL = URL_SERVICES + '/api/upload/img-perfil/' + tipo + '/' + id;
       console.log(URL)
-     /* /api/upload/img-perfil/client/5fb2e8389e8f644f0899c0e6 
-     http://localhost:5000/api/upload/img-perfil/enterprise/5fac436f44e3cf8814d14f5b
-     let tipo = '';
-      const role = this._usuarioService.role;
-      if(role === 'client_role'){
-        tipo = 'client';
-      }
-      if(role === 'enterprise_role'){
-        tipo = 'enterprise';
-      }
-      if(role === 'admin_role'){
-        tipo = 'admin';
-      } */
 
       xhr.open('PUT', URL, true);
       xhr.send(formData);

@@ -12,9 +12,7 @@ export class LoginGuard implements CanActivate {
                public router: Router ){}
   canActivate(){
     if (this._usuarioService.logueoExists()){
-      console.log('pasó el guard');
     }else{
-      console.log('debes loguearte');
       this.router.navigate(['/login']);
       return false;
     }

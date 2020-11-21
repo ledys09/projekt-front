@@ -5,8 +5,6 @@ import swal from 'sweetalert';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
-
-
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -14,12 +12,14 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class UsersComponent implements OnInit {
 
-  planSeleccionado : string;
+  usuarioM: Usuario;
   role = 'admin_role';
   usuarios: Usuario[] = [];
   totalUsuarios = 0;
   desde =  0;
   cargando = true;
+  imgSubir: File;
+  imgTemp: any;
 
   constructor( public _usuarioService: UsuarioService,
                private _modalService: NgbModal) { }
@@ -28,12 +28,8 @@ export class UsersComponent implements OnInit {
     this.cargarUsuarios(this.role, this.desde);
   }
 
-
-
-
   cargarUsuarios(role: string, desde: number = 0){
     this.desde = desde;
-   // console.log(desde, this.desde);
     this.role = role;
     this._usuarioService.cargarUsuarios(role, desde)
     .subscribe( (resp: any) => {
@@ -44,6 +40,7 @@ export class UsersComponent implements OnInit {
   }
 
   cambiarDesde( valor: number){
+    this.role = this.role;
     const desde = this.desde + valor;
     if (desde >= this.totalUsuarios ){
       return;
@@ -105,7 +102,7 @@ guardarNuevoUsuario(usuario: Usuario){
         'Usuario administrado registrado',
         `${usuario.nombre}`,
         'success');
-        this.cargarUsuarios(this.role, this.desde);
+      this.cargarUsuarios(this.role, this.desde);
       return;
     });
     this._modalService.dismissAll();
@@ -119,7 +116,7 @@ guardarNuevoUsuario(usuario: Usuario){
         'Usuario empresa registrado',
         `${usuario.nombreEmpresa}`,
         'success');
-        this.cargarUsuarios(this.role, this.desde);
+      this.cargarUsuarios(this.role, this.desde);
       return;
     });
     this._modalService.dismissAll();
@@ -132,7 +129,7 @@ guardarNuevoUsuario(usuario: Usuario){
         'Usuario cliente registrado',
         `${usuario.nombre}`,
         'success');
-        this.cargarUsuarios(this.role, this.desde);
+      this.cargarUsuarios(this.role, this.desde);
       return;
     });
     this._modalService.dismissAll();
@@ -140,5 +137,56 @@ guardarNuevoUsuario(usuario: Usuario){
 
 }
 
+modalEditarUsuario(usuario: Usuario, modal){
+  this.usuarios.forEach(el => {
+    if(el._id === usuario._id){
+      // console.log(el);
+      this.usuarioM = el;
+      this._modalService.open(modal,
+        {
+          size: 'lg',
+          centered: true
+        });
+    }
+  });
+}
+
+actualizarUsuario(usuario: Usuario){
+  this._usuarioService.actualizarUsuarioAdmin(usuario, this.usuarioM._id)
+  .subscribe( (usuario: any) => {
+    swal(
+      'Usuario actualizado',
+      `${usuario.UsuarioDB.nombre}`,
+      'success');
+    this.cargarUsuarios(this.role, this.desde);
+    return;
+  });
+  this._modalService.dismissAll();
+}
+
+seleccionImg(archivo: File){
+  if (!archivo){
+    this.imgSubir = null;
+    return;
+  }
+
+  if ( archivo.type.indexOf('image') < 0 ){
+  swal ('Sólo imagenes', 'El archivo seleccionado no es una imagen', 'error');
+  this.imgTemp = null;
+  return;
+}
+  this.imgSubir = archivo;
+  let reader = new FileReader();
+  let urlImgTemp = reader.readAsDataURL(archivo);
+  reader.onloadend = () => this.imgTemp = reader.result;
+}
+
+cambiarImg(){
+this._usuarioService.cambiarImgAdmin(this.imgSubir, this.usuarioM._id, this.usuarioM.role);
+this._modalService.dismissAll();
+this._usuarioService.cargarStorage();
+this.cargarUsuarios(this.role, this.desde);
+
+}
 
 }

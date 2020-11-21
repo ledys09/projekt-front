@@ -68,7 +68,7 @@
                             <td>{{usuario.correo}}</td>
                             <td>{{usuario.role}}</td>
                             <td>
-                                <button class="btn-primary" style="margin: 5px;">
+                                <button (click)="modalEditarUsuario(usuario, EditarUsuario)" class="btn-primary" style="margin: 5px;">
                                     <i class="fa fa-pencil"></i>
                                 </button>
                                 <button (click)="eliminarUsuario(usuario)" class="btn-danger">
@@ -105,7 +105,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">Nombre</label>
-                            <input ngModel="" name="nombre" type="text" class="form-control">
+                            <input [ngModel]="" name="nombre" type="text" class="form-control">
                         </div>
                         <div class="form-group">
                             <label class="control-label">Contraseña</label>
@@ -170,29 +170,113 @@
     </div>
 </ng-template>
 
-<!-- <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
+<!-- Ventana modal para editar usuario -->
 
-<hr>
-
-<pre>{{ closeResult }}</pre> -->
-
-
-<!-- Ventana modal modificar usuario 
-<ng-template #modalUsuarios let-modal>
+<ng-template #EditarUsuario let-modal>
     <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Seleccionar usuario</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cerro con la X')">
+        <h4 class="modal-title" id="modal-basic-title">Editar Usuario</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
-      <select class="form-control" [(ngModel)]="usuarioSeleccionado">
-        <option>Seleccione un usuario</option>
-        <option *ngFor="let usuario of usuarios" [ngValue]="usuario._id">{{usuario.nombreUsuario}}</option>
-      </select>
+        <!--   <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Fotografia
+                        <hr>
+                    </h3>
+                    <h6 class="card-subtitle"></h6>
+                    <img *ngIf="!imgTemp" [src]="usuarioM.foto | img:usuarioM.role" class="w150">
+                    <img *ngIf="imgTemp" [src]="imgTemp" class="w150">
+                    <br> <br>
+                    <input type="file" (change)="seleccionImg( $event.target.files[0] )" name="" id=""> <br> <br> <br>
+                    <div class="form-actions">
+                        <button type="button" (click)="cambiarImg()" [disabled]="!imgSubir" style="width: auto !important;" class="btn iniciar"> <i class="fa fa-save"></i> Actualizar</button>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <div class="col-lg-6">
+            <form ngNativeValidate #f="ngForm" (ngSubmit)="actualizarUsuario(f.value)">
+                <div class="form-body">
+                    <div class="row p-t-20">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Nombre</label>
+                                <input [ngModel]="usuarioM.nombre" name="nombre" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div *ngIf="role === 'enterprise_role'" class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Nombre empresa</label>
+                                <input [ngModel]="usuarioM.nombreEmpresa" name="nombreEmpresa" type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div *ngIf="role === 'enterprise_role'" class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Plan</label>
+                                <select [ngModel]="usuarioM.plan" name="plan" class="form-control custom-select">
+                                    <option  value="gratis">Gratis</option>
+                                    <option  value="medio">Medio</option>
+                                    <option  value="completo">Completo</option>
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label>Correo</label>
+                                <input [ngModel]="usuarioM.correo" name="correo" type="email" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div *ngIf="role != 'admin_role'" class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Telefono</label>
+                                <input [ngModel]="usuarioM.telefono" name="telefono" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-12 ">
+                            <div class="form-group">
+                                <label>Dirección</label>
+                                <input [ngModel]="usuarioM.direccion" name="direccion" type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" style="width: auto !important;" class="btn iniciar"> 
+                        <i class="fa fa-save"></i> Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Fotografia
+                        <hr>
+                    </h3>
+                    <h6 class="card-subtitle"></h6>
+                    <img *ngIf="!imgTemp" [src]="usuarioM.foto | img:usuarioM.role" class="w150">
+                    <img *ngIf="imgTemp" [src]="imgTemp" class="w150">
+                    <br> <br>
+                    <input type="file" (change)="seleccionImg( $event.target.files[0] )" name="" id=""> <br> <br> <br>
+                    <div class="form-actions">
+                        <button type="button" (click)="cambiarImg()" [disabled]="!imgSubir" style="width: auto !important;" class="btn iniciar"> <i class="fa fa-save"></i> Actualizar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-success" (click)="seleccionarUsuario()">Seleccionar usuario</button>
-      <button type="button" class="btn btn-outline-success" (click)="modal.close('Boton Cerrar')">Cerrar</button>
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Save click')">Cancelar</button>
     </div>
-  </ng-template>-->
+</ng-template>

@@ -22,7 +22,6 @@ export class UsuarioService {
   constructor( public http: HttpClient,
                public router: Router,
                public _uploadService: UploadService ) {
-    console.log('servicio usuario');
     this.cargarStorage();
   }
 
@@ -122,7 +121,7 @@ export class UsuarioService {
     return this.http.post(URL, usuario)
     .pipe(map((resp: any) => {
       this.guardarStorage(resp.id, resp.token, resp.usuario, resp. role, resp.menu);
-      // console.log(resp);
+      
       return true;
     }));
   }
@@ -135,18 +134,17 @@ export class UsuarioService {
     if(this.role === 'client_role'){
       this.tipo = 'client';
     }
-    if( this.role === 'enterprise_role'){
+    if(this.role === 'enterprise_role'){
       this.tipo = 'enterprise';
     }
     this._uploadService.subirArchivo(archivo, this.tipo, id)
     .then((resp: any) => {
-    console.log(resp);
     this.usuario.foto = resp.data.foto;
     swal('Imagen actualizada', this.usuario.nombre, 'success');
     this.guardarStorage(id, this.token, this.usuario, this.role, resp.menu);
     })
     .catch(resp => {
-      console.log(resp);
+
     });
   }
 
@@ -177,13 +175,43 @@ export class UsuarioService {
     .pipe(map( (usuario: any) => usuario.UsuarioDB) );
   }
 
-  actualizarUsuarioAdmin(usuario: Usuario){
+  actualizarUsuarioAdmin(usuario: Usuario, id: string){
     const headers = new HttpHeaders ({
       'token': this.token
     });
-    const URL = URL_SERVICES + `/api/user/${usuario._id}`;
+    const URL = URL_SERVICES + `/api/user/${id}`;
     return this.http.put(URL, usuario, {headers});
     }
+
+    cambiarImgAdmin( archivo: File, id: string, role: string){
+   
+      if (role === 'admin_role'){
+        this.tipo = 'admin';
+      }
+      if(role === 'client_role'){
+        this.tipo = 'client';
+      }
+      if( role === 'enterprise_role'){
+        this.tipo = 'enterprise';
+      }
+      this._uploadService.subirArchivo(archivo, this.tipo, id)
+      .then((resp: any) => {
+      this.usuario.foto = resp.data.foto;
+      swal('Imagen actualizada', this.usuario.nombre, 'success');
+      })
+      .catch(resp => {
+        swal('No se puedo actualizar', resp, 'success');
+      });
+    }
+  
+  obtenerUsuario(id: string){
+    const headers = new HttpHeaders ({
+      'token': this.token
+    });
+    const URL = URL_SERVICES + `/api/user/${id}`;
+    return this.http.get(URL, {headers})
+    .pipe(map ((data: any) => data.usuarioDB ) );
+  }
 
 
 }

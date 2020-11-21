@@ -13,7 +13,8 @@ export class SidebarComponent implements OnInit {
   tipoUser: string;
 
   constructor(public _sidebarService: SidebarService,
-              public _usuarioService: UsuarioService) { }
+              public _usuarioService: UsuarioService) { 
+              }
   
 
   ngOnInit(): void {

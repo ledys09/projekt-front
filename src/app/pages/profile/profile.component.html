@@ -14,16 +14,16 @@
                                         <input [ngModel]="usuario.nombre" name="nombre" type="text" class="form-control">
                                     </div>
                                 </div>
-                                <!--/span-->
+
                                 <div *ngIf="usuario.role === 'enterprise_role'" class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Nombre empresa</label>
                                         <input [ngModel]="usuario.nombreEmpresa" name="nombreEmpresa" type="text" class="form-control">
                                     </div>
                                 </div>
-                                <!--/span-->
+
                             </div>
-                            <!--/row-->
+
                             <div class="row">
                                 <div *ngIf="usuario.role === 'enterprise_role'" class="col-md-6">
                                     <div class="form-group">
@@ -43,8 +43,8 @@
                                 </div>
 
                             </div>
-                            <!--/row-->
-                            <!--/row-->
+
+
                             <hr>
                             <div class="row" *ngIf="usuario.role != 'admin_role'">
                                 <div class="col-md-6">
@@ -61,7 +61,7 @@
                                 </div>
                             </div>
 
-                            <!--/row-->
+
                         </div>
                         <div class="form-actions">
                             <button type="submit" style="width: auto !important;" class="btn iniciar"> 

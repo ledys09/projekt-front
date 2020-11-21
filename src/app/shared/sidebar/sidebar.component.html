@@ -9,7 +9,7 @@
             <ul id="sidebarnav">
                 <li class="user-profile">
                     <a *ngIf="usuario.role === 'enterprise_role'" class=" waves-effect side" aria-expanded="false">
-                        <img [src]="usuario.foto | img" alt="user" />
+                        <img [src]="usuario.foto | img:usuario.role" alt="user" />
                         <span class="hide-menu">{{usuario.nombreEmpresa}} </span>
                     </a>
                     <a *ngIf="usuario.role != 'enterprise_role'" class=" waves-effect side" aria-expanded="false">
