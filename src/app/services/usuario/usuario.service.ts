@@ -196,12 +196,23 @@ export class UsuarioService {
       }
       this._uploadService.subirArchivo(archivo, this.tipo, id)
       .then((resp: any) => {
-      this.usuario.foto = resp.data.foto;
-      swal('Imagen actualizada', this.usuario.nombre, 'success');
+      swal('Imagen actualizada', resp.msg, 'success');
       })
       .catch(resp => {
-        swal('No se puedo actualizar', resp, 'success');
+        swal('No se puedo actualizar', resp.msg, 'success');
       });
+    }
+
+    nuevoArchivo(archivo: File){
+      this._uploadService.subirArchivoEmpresa(archivo, this.id)
+      .then((resp: any) => {
+        // this.usuario.foto = resp.data.foto;
+        swal('Archivo subido', resp.msg, 'success');
+        })
+        .catch(resp => {
+          console.log(resp)
+          swal('No guardado', resp.msg, 'error');
+        });
     }
   
   obtenerUsuario(id: string){
@@ -211,6 +222,11 @@ export class UsuarioService {
     const URL = URL_SERVICES + `/api/user/${id}`;
     return this.http.get(URL, {headers})
     .pipe(map ((data: any) => data.usuarioDB ) );
+  }
+
+  obtenerArchivos(tipo: string){
+    const URL = URL_SERVICES + `/api/upload/${this.id}/${tipo}`;
+    return this.http.get(URL);
   }
 
 

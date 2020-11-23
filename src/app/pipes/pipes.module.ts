@@ -1,17 +1,23 @@
 import { NgModule } from '@angular/core';
 import { ImgPipe } from './img.pipe';
+import { DomSeguroPipe } from './dom-seguro.pipe';
+import { ArchivosPipe } from './archivos.pipe';
 
 
 
 @NgModule({
   declarations: [
-    ImgPipe
+    ImgPipe,
+    DomSeguroPipe,
+    ArchivosPipe
   ],
   imports: [
 
   ],
   exports: [
-    ImgPipe
+    ImgPipe,
+    DomSeguroPipe,
+    ArchivosPipe
   ]
 })
 export class PipesModule { }

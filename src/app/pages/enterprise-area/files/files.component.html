@@ -1,1 +1,166 @@
-<p>files works!</p>
+<div *ngIf="cargando" class="row animated fadeIn">
+    <div class="col-sm-12">
+        <div class="alert alert-warning text-center">
+            <strong>Cargando</strong>
+            <br>
+            <i class="fa fa-refresh fa-spin fa-1x"></i>
+            <br>
+            <span>Espere por favor</span>
+
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="!cargando">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12 align-self-center">
+                        <ol class="breadcrumb" style="background-color: white !important;">
+                            <li class="breadcrumb-item ">
+                                <a href="javascript:void(0)" (click)="cargarArchivos('image')" class="enlaces">Imagenes</a>
+                            </li>
+                            <li class="breadcrumb-item ">
+                                <a href="javascript:void(0)" (click)="cargarArchivos('video')" class="enlaces">Videos</a>
+                            </li>
+                            <li class="breadcrumb-item ">
+                                <a href="javascript:void(0)" (click)="cargarArchivos('others')" class="enlaces">Otros</a>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+
+
+                <h5 class="card-title">
+                    {{seccion}} (
+                    <small>{{totalArchivos}}</small> )
+                    <small> <button  class="btn btn-primary" (click)= "modalNuevoArchivo(NuevoArchivo)"  style="margin: 5px; float:right !important;">
+                        <i class="fa fa-plus"></i> Nuevo
+                    </button></small>
+                </h5>
+
+                <div class="row">
+                    <div class="col-md-4 p-4" *ngFor="let archivo of archivos">
+                        <div class="card">
+                            <div class="card-body">
+                                <div *ngIf="tipoArchivo === 'others'">
+                                    <a style="text-decoration: none" [href]="archivo.usuario | archivos:archivo.nombreArchivo" target="_blank">
+                                        <i *ngIf="archivo.extension === 'docx'" class="fas fa-file-word iconoFile pointer"></i>
+                                        <i *ngIf="archivo.extension === 'pdf' " style="color: red ;" class="fas fa-file-pdf iconoFile pointer"></i>
+                                        <i *ngIf="archivo.extension != 'pdf' && archivo.extension != 'docx'" class="fas fa-file-alt iconoFile pointer" style="color:gray;"></i>
+                                    </a>
+                                </div>
+                                <img *ngIf="tipoArchivo === 'image'" [src]="archivo.usuario | archivos:archivo.nombreArchivo" class="w100"> <br>
+                                <video controls *ngIf="tipoArchivo === 'video'" [src]="archivo.usuario | archivos:archivo.nombreArchivo" class="w200"> 
+                            </video> <br> <button (click)="modalEditarArchivo(archivo, EditarArchivo)" class="btn-primary" style="margin: 5px;">
+                                <i class="fa fa-pencil"></i>
+                            </button>
+                                <button (click)="eliminarArchivo(archivo)" class="btn-danger">
+                                <i class="fa fa-trash-o"></i>
+                            </button> Nombre: {{archivo.nombreArchivo}}
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!--   <button (click)="cambiarDesde(-5)" style="margin: 5px;" class="btn btn-secondary">
+                    Anterior
+                </button>
+                <button (click)="cambiarDesde(5)" class="btn btn-secondary">
+                    Siguiente
+                </button> -->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Ventana modal de nuevo archivo -->
+<ng-template #NuevoArchivo let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Nuevo Archivo</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <div class="card">
+            <div class="card-body">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">
+                                Subir {{tipoArchivo}}
+                                <hr>
+                            </h3>
+                            <h6 class="card-subtitle"></h6>
+                            <img *ngIf="!imgTemp" [src]="'nadaa' | img" class="w150">
+                            <img *ngIf="imgTemp && tipoArchivo === 'image'" [src]="imgTemp" class="w150">
+                            <video controls *ngIf="imgTemp && tipoArchivo === 'video'" [src]="imgTemp" class="w150">
+                                </video>
+                            <img *ngIf="imgTemp && tipoArchivo === 'others'" [src]="icon | domseguro" class="w150">
+                            <br> <br>
+                            <input [ngModel]="" name="archivoSubir" type="file" (change)="seleccionImg( $event.target.files[0] )"> <br> <br> <br>
+                            <button type="button" (click)="guardarNuevoArchivo()" [disabled]="!imgSubir" style="width: auto !important;" class="btn iniciar"> 
+                                    <i class="fa fa-save"></i> Guardar</button>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Save click')">Cancelar</button>
+
+    </div>
+</ng-template>
+
+<!-- Ventana modal de editar archivo -->
+<ng-template #EditarArchivo let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Nuevo Archivo</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <div class="card">
+            <div class="card-body">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">
+                                Subir {{tipoArchivo}}
+                                <hr>
+                            </h3>
+                            <h6 class="card-subtitle"></h6>
+                            <img *ngIf="!imgTemp" [src]="'nadaa' | img" class="w150">
+                            <img *ngIf="imgTemp && tipoArchivo === 'image'" [src]="imgTemp" class="w150">
+                            <video controls *ngIf="imgTemp && tipoArchivo === 'video'" [src]="imgTemp" class="w150">
+                                </video>
+                            <img *ngIf="imgTemp && tipoArchivo === 'others'" [src]="icon | domseguro" class="w150">
+                            <br> <br>
+                            <input [ngModel]="" name="archivoSubir" type="file" (change)="seleccionImg( $event.target.files[0] )"> <br> <br> <br>
+                            <button type="button" (click)="guardarNuevoArchivo()" [disabled]="!imgSubir" style="width: auto !important;" class="btn iniciar"> 
+                                    <i class="fa fa-save"></i> Guardar</button>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Save click')">Cancelar</button>
+
+    </div>
+</ng-template>

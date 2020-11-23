@@ -184,9 +184,8 @@ seleccionImg(archivo: File){
 cambiarImg(){
 this._usuarioService.cambiarImgAdmin(this.imgSubir, this.usuarioM._id, this.usuarioM.role);
 this._modalService.dismissAll();
-this._usuarioService.cargarStorage();
 this.cargarUsuarios(this.role, this.desde);
-
+this.imgTemp= null;
 }
 
 }
