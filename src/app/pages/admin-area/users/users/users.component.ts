@@ -57,11 +57,12 @@ export class UsersComponent implements OnInit {
       this.cargarUsuarios(this.role, this.desde)
       return;
     }
-    // console.log(termino);
-    this._usuarioService.buscarUsuario(termino)
+    this.cargando = true;
+    this._usuarioService.buscar('user', termino)
     .subscribe((usuarios: Usuario[]) => {
-      console.log(usuarios);
+     // console.log(usuarios);
       this.usuarios = usuarios;
+      this.cargando = false;
     })
   }
 
@@ -73,16 +74,24 @@ export class UsersComponent implements OnInit {
         'error');
       return;
     }
-    this._usuarioService.eliminarUsuario(usuario)
+    swal({
+      title: '¿Está seguro?',
+      text: 'Una vez eliminado, no puedes recuperarlo!',
+      icon: 'warning',
+      buttons: [true, true],
+      dangerMode: true,
+    })
+    .then((borrar) => {
+      if (borrar) {
+        this._usuarioService.eliminarUsuario(usuario)
     .subscribe((usuario: any) => {
-      swal(
-        'Usuario eliminado',
-        `${usuario.nombre}`,
-        'success');
-      return;
+      swal(`${ usuario.nombre} Eliminado con exito`, {
+        icon: 'success',
+      });
+      this.cargarUsuarios(this.role, this.desde);
     });
-    this.cargarUsuarios(this.role, this.desde);
-    // console.log(usuario._id);
+      }
+    });
   }
 
   modalNuevoUsuario(modal){
@@ -152,6 +161,7 @@ modalEditarUsuario(usuario: Usuario, modal){
 }
 
 actualizarUsuario(usuario: Usuario){
+  console.log(usuario);
   this._usuarioService.actualizarUsuarioAdmin(usuario, this.usuarioM._id)
   .subscribe( (usuario: any) => {
     swal(
@@ -183,9 +193,13 @@ seleccionImg(archivo: File){
 
 cambiarImg(){
 this._usuarioService.cambiarImgAdmin(this.imgSubir, this.usuarioM._id, this.usuarioM.role);
-this._modalService.dismissAll();
+console.log(this.role);
 this.cargarUsuarios(this.role, this.desde);
+this._modalService.dismissAll();
 this.imgTemp= null;
+this.imgSubir = null;
+
+
 }
 
 }

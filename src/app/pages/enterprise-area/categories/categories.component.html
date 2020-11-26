@@ -1,1 +1,112 @@
-<p>categories works!</p>
+<div class="row animated fadeIn">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <input #input (keyup)="buscarCategoria(input.value)" type="text" class="form-control" name="" id="" placeholder="Buscar Categoria...">
+                <br><br>
+                <h5 class="card-title">
+                    Total (
+                    <small>{{totalCategorias}} </small> )
+                    <button class="btn btn-primary" (click)="modalNuevaCategoria(NuevaCategoria)" style="margin: 5px; float:right !important;">
+                        <i class="fa fa-plus"></i> Nuevo
+                    </button>
+                </h5>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="cargando" class="row animated fadeIn">
+    <div class="col-sm-12">
+        <div class="alert alert-warning text-center">
+            <strong>Cargando</strong>
+            <br>
+            <i class="fa fa-refresh fa-spin fa-1x"></i>
+            <br>
+            <span>Espere por favor</span>
+
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf="!cargando" class="container-fluid">
+    <div class="row">
+        <div class="card col-12 col-sm-6 col-m-6 col-lg-3 ml-5 animated fadeIn" *ngFor="let cateogoria of categorias" style="width: 15rem;">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fab fa-bandcamp"></i> {{cateogoria.nombreCategoria}}</h5>
+                <p class="card-text">{{cateogoria.descripcion}}</p>
+                <a (click)="modalEditarCategoria(cateogoria, EditarCategoria)" class="card-link enlaces pointer"> <i class="fa fa-pencil"></i> Editar</a>
+                <a (click)="eliminarCategoria(cateogoria)" style="color: red" class="card-link enlaces pointer"><i class="fa fa-trash-o"></i> Eliminar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Ventana modal de nueva categoria -->
+<ng-template #NuevaCategoria let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Editar categoria</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <form #f="ngForm" (ngSubmit)="crearCategoria(f.value)">
+                    <div class="card">
+                        <div class="card-body">
+                            <label style="color: black;" for="nombreA">Nombre categoria:</label>
+                            <input [ngModel]="" name="nombreCategoria" class="form-control" type="text" id="nombreA">
+                        </div>
+                        <div class="card-body">
+                            <label style="color: black;" for="nombreA">Descripción:</label>
+                            <input [ngModel]="" name="descripcion" class="form-control" type="text" id="nombreA">
+                        </div>
+                    </div>
+                    <button type="submit" style="width: auto !important;" class="btn iniciar"> 
+                        <i class="fa fa-save"></i> Guardar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Save click')">Cancelar</button>
+    </div>
+</ng-template>
+
+<!-- Ventana modal de editar categoria -->
+<ng-template #EditarCategoria let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Editar categoria</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <form #f="ngForm" (ngSubmit)="editarCategoria(f.value)">
+                    <div class="card">
+                        <div class="card-body">
+                            <label style="color: black;" for="nombreA">Nombre categoria:</label>
+                            <input [ngModel]="categoria.nombreCategoria" name="nombreCategoria" class="form-control" type="text" id="nombreA">
+                        </div>
+                        <div class="card-body">
+                            <label style="color: black;" for="nombreA">Descripción:</label>
+                            <input [ngModel]="categoria.descripcion" name="descripcion" class="form-control" type="text" id="nombreA">
+                        </div>
+                    </div>
+                    <button type="submit" style="width: auto !important;" class="btn iniciar"> 
+                        <i class="fa fa-save"></i> Actualizar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Save click')">Cancelar</button>
+    </div>
+</ng-template>

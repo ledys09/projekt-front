@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import swal from 'sweetalert';
 import { UsuarioService } from '../../../services/usuario/usuario.service';
-import { Archivo } from '../../../models/update.model';
+import { Archivo } from '../../../models/update/update.model';
 import { URL_SERVICES } from '../../../config/config';
 
 @Component({
@@ -12,7 +12,8 @@ import { URL_SERVICES } from '../../../config/config';
 })
 export class FilesComponent implements OnInit {
 
-  archivos: Archivo;
+  archivoM: Archivo;
+  archivos: Archivo[] = [];
   icon = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwpErTIwT-givt8HoMeQ-1eTjCj6moXQNRg&usqp=CAU';
   cargando = true;
   seccion = 'Imágenes';
@@ -21,6 +22,7 @@ export class FilesComponent implements OnInit {
   imgSubir: File;
   imgTemp: any;
   URL = URL_SERVICES;
+  nombreDividido: string
 
 
   constructor(public _modalService: NgbModal,
@@ -58,19 +60,62 @@ export class FilesComponent implements OnInit {
     //console.log(archivo);
     this._usuarioService.nuevoArchivo(this.imgSubir);
     this._modalService.dismissAll();
+    //console.log(this.tipoArchivo)
     this.cargarArchivos(this.tipoArchivo);
     this.imgTemp= null;
   }
   modalEditarArchivo(archivo: Archivo, modal){
-    console.log(archivo)
+   
+    this.archivoM = archivo;
+    this.archivos.forEach(el => {
+      if(el._id === archivo._id){
+        const nombreA = el.nombreArchivo.split('.');
+        this.nombreDividido = nombreA[0];
+        this.archivoM = el;
+        this._modalService.open(modal,
+          {
+            size: 'lg',
+            centered: true
+          });
+      }
+    });
+  }
+
+  actualizarArchivo(archivo: Archivo){
+    console.log('actualizar', archivo);
+    this._usuarioService.actualizarArchivo(archivo, this.archivoM._id)
+    .subscribe ((archivodb: any) => {
+      swal(archivodb.msg, archivodb.fileDB.nombreArchivo, 'success' );
+      this.cargarArchivos(this.tipoArchivo);
+    });
+    this._modalService.dismissAll();
+   //this.imgTemp= null;
   }
 
   eliminarArchivo(archivo: Archivo){
-    console.log(archivo);
+    swal({
+      title: '¿Está seguro?',
+      text: 'Una vez eliminado, no puedes recuperarlo!',
+      icon: 'warning',
+      buttons: [true, true],
+      dangerMode: true,
+    })
+    .then((borrar) => {
+      if (borrar) {
+        this._usuarioService.eliminarArchivo(archivo)
+    .subscribe((archivo: any) => {
+      swal(`${ archivo.msg}`, {
+        icon: 'success',
+      });
+      this.cargarArchivos(this.tipoArchivo);
+    });
+      }
+    });
   }
 
   seleccionImg(archivo: File){
     if (!archivo){
+      //this.imgTemp = null;
       this.imgSubir = null;
       return;
     }
@@ -86,5 +131,17 @@ export class FilesComponent implements OnInit {
     reader.onloadend = () => this.imgTemp = reader.result;
   }
 
+  buscarArchivo(termino: string){
+    if( termino.length <= 0){
+      this.cargarArchivos(this.tipoArchivo);
+      return;
+    }
+    this.cargando = true;
+    this._usuarioService.buscar('upload', termino)
+    .subscribe((archivos: Archivo[]) => {
+      this.archivos = archivos;
+      this.cargando = false;
+    })
+  }
 
 }

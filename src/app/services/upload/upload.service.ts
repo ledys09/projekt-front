@@ -47,10 +47,10 @@ export class UploadService {
       let xhr = new XMLHttpRequest();
       formData.append('archivoSubir', archivo, archivo.name);
       xhr.onreadystatechange = () => {
-      if(xhr.readyState === 4){
+      if (xhr.readyState === 4){
         console.log(xhr.status)
 
-        if(xhr.status === 201){
+        if (xhr.status === 201){
           console.log('iamgen subida');
           resolve(JSON.parse(xhr.response));
         }else {

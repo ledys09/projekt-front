@@ -6,6 +6,8 @@ import { map } from 'rxjs/operators';
 import swal from 'sweetalert';
 import { Router } from '@angular/router';
 import { UploadService } from '../upload/upload.service';
+import { Archivo } from '../../models/update/update.model';
+import { Categoria } from '../../models/categoria/categoria/categoria.model';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +41,7 @@ export class UsuarioService {
   }
 
   cargarStorage(){
-    if(localStorage.getItem('token')){
+    if (localStorage.getItem('token')){
       this.token = localStorage.getItem('token');
       this.usuario = JSON.parse(localStorage.getItem('usuario'));
       this.menu = JSON.parse(localStorage.getItem('menu'));
@@ -108,7 +110,6 @@ export class UsuarioService {
   }));
   }
 
-
   login(usuario: Usuario, recordar: boolean = false){
 
     if (recordar){
@@ -131,10 +132,10 @@ export class UsuarioService {
     if (this.role === 'admin_role'){
       this.tipo = 'admin';
     }
-    if(this.role === 'client_role'){
+    if (this.role === 'client_role'){
       this.tipo = 'client';
     }
-    if(this.role === 'enterprise_role'){
+    if (this.role === 'enterprise_role'){
       this.tipo = 'enterprise';
     }
     this._uploadService.subirArchivo(archivo, this.tipo, id)
@@ -144,8 +145,33 @@ export class UsuarioService {
     this.guardarStorage(id, this.token, this.usuario, this.role, resp.menu);
     })
     .catch(resp => {
-
+      console.log(resp);
     });
+  }
+
+  cambiarImgAdmin( archivo: File, id: string, role: string){
+    if (role === 'admin_role'){
+      this.tipo = 'admin';
+    }
+    if (role === 'client_role'){
+      this.tipo = 'client';
+    }
+    if ( role === 'enterprise_role'){
+      this.tipo = 'enterprise';
+    }
+    this._uploadService.subirArchivo(archivo, this.tipo, id)
+    .then((resp: any) => {
+      swal('Imagen actualizada', resp.msg, 'success');
+      if (id === this.id){
+        const data = resp.data;
+        this.guardarStorage(data._id, this.token, data, data.role, this.menu);
+       // console.log(id, this.id)
+      }
+    })
+    .catch(resp => {
+      swal('No se puedo actualizar', resp.msg, 'success');
+    });
+    this.cargarStorage();
   }
 
   cargarUsuarios(role: string, desde: number = 0){
@@ -156,15 +182,23 @@ export class UsuarioService {
     return this.http.get(URL, {headers});
   }
 
-  buscarUsuario( termino: string){
+  buscar( coleccion: string, termino: string){
     const headers = new HttpHeaders ({
       'token': this.token
     });
-    const URL = URL_SERVICES + `/api/user/search/${termino}`;
+    const URL = URL_SERVICES + `/api/${coleccion}/search/${termino}`;
     return this.http.get(URL, {headers})
     .pipe(map ((resp: any) => resp.data ) );
   }
 
+  obtenerUsuario(id: string){
+    const headers = new HttpHeaders ({
+      'token': this.token
+    });
+    const URL = URL_SERVICES + `/api/user/${id}`;
+    return this.http.get(URL, {headers})
+    .pipe(map ((data: any) => data.usuarioDB ) );
+  }
 
   eliminarUsuario(usuario: Usuario){
     const headers = new HttpHeaders ({
@@ -182,27 +216,7 @@ export class UsuarioService {
     const URL = URL_SERVICES + `/api/user/${id}`;
     return this.http.put(URL, usuario, {headers});
     }
-
-    cambiarImgAdmin( archivo: File, id: string, role: string){
-   
-      if (role === 'admin_role'){
-        this.tipo = 'admin';
-      }
-      if(role === 'client_role'){
-        this.tipo = 'client';
-      }
-      if( role === 'enterprise_role'){
-        this.tipo = 'enterprise';
-      }
-      this._uploadService.subirArchivo(archivo, this.tipo, id)
-      .then((resp: any) => {
-      swal('Imagen actualizada', resp.msg, 'success');
-      })
-      .catch(resp => {
-        swal('No se puedo actualizar', resp.msg, 'success');
-      });
-    }
-
+  
     nuevoArchivo(archivo: File){
       this._uploadService.subirArchivoEmpresa(archivo, this.id)
       .then((resp: any) => {
@@ -214,20 +228,60 @@ export class UsuarioService {
           swal('No guardado', resp.msg, 'error');
         });
     }
-  
-  obtenerUsuario(id: string){
-    const headers = new HttpHeaders ({
-      'token': this.token
-    });
-    const URL = URL_SERVICES + `/api/user/${id}`;
-    return this.http.get(URL, {headers})
-    .pipe(map ((data: any) => data.usuarioDB ) );
-  }
+
+    actualizarArchivo(archivo: Archivo, idArchivo: string){
+      const headers = new HttpHeaders ({
+        'token': this.token
+      });
+      const URL = URL_SERVICES + `/api/upload/${this.id}/${idArchivo}`;
+      return this.http.put(URL, archivo, {headers});
+    }
 
   obtenerArchivos(tipo: string){
     const URL = URL_SERVICES + `/api/upload/${this.id}/${tipo}`;
     return this.http.get(URL);
   }
+
+  eliminarArchivo(archivo: Archivo){
+    const headers = new HttpHeaders ({
+      'token': this.token
+    });
+    const URL = URL_SERVICES + `/api/upload/${archivo._id}`;
+    return this.http.delete(URL, {headers});
+    // .pipe(map( (usuario: any) => usuario.UsuarioDB) );
+  }
+
+  cargarCatgorias( ){
+    const URL = URL_SERVICES + `/api/category/${this.id}`;
+    return this.http.get(URL);
+  }
+
+  crearCategorias(categoria: Categoria){
+    const headers = new HttpHeaders ({
+      'token': this.token
+    });
+    const URL = URL_SERVICES + `/api/category`;
+    return this.http.post(URL, categoria, {headers});
+  }
+
+  actualizarCategorias(categoria: Categoria, idCategoria: string){
+    const headers = new HttpHeaders ({
+      'token': this.token
+    });
+    const URL = URL_SERVICES + `/api/category/${idCategoria}`;
+    return this.http.put(URL, categoria, {headers});
+
+  }
+
+  eliminarCategoria(idCategoria: string){
+     const headers = new HttpHeaders ({
+           'token': this.token
+         });
+     const URL = URL_SERVICES + `/api/category/${idCategoria}`;
+     return this.http.delete(URL, {headers});
+  }
+  
+
 
 
 }

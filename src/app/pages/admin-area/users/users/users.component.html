@@ -180,29 +180,11 @@
       </button>
     </div>
     <div class="modal-body">
-        <!--   <div class="col-lg-6">
-            <div class="card">
-                <div class="card-body">
-                    <h3 class="card-title">
-                        Fotografia
-                        <hr>
-                    </h3>
-                    <h6 class="card-subtitle"></h6>
-                    <img *ngIf="!imgTemp" [src]="usuarioM.foto | img:usuarioM.role" class="w150">
-                    <img *ngIf="imgTemp" [src]="imgTemp" class="w150">
-                    <br> <br>
-                    <input type="file" (change)="seleccionImg( $event.target.files[0] )" name="" id=""> <br> <br> <br>
-                    <div class="form-actions">
-                        <button type="button" (click)="cambiarImg()" [disabled]="!imgSubir" style="width: auto !important;" class="btn iniciar"> <i class="fa fa-save"></i> Actualizar</button>
-                    </div>
-                </div>
-            </div>
-        </div> -->
         <div class="col-lg-6">
             <form ngNativeValidate #f="ngForm" (ngSubmit)="actualizarUsuario(f.value)">
                 <div class="form-body">
                     <div class="row p-t-20">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label class="control-label">Nombre</label>
                                 <input [ngModel]="usuarioM.nombre" name="nombre" type="text" class="form-control">

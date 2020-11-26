@@ -1,3 +1,13 @@
+<div class="row animated fadeIn">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <input #input (keyup)="buscarArchivo(input.value)" type="text" class="form-control" name="" id="" placeholder="Buscar {{seccion}}...">
+            </div>
+        </div>
+    </div>
+</div>
+
 <div *ngIf="cargando" class="row animated fadeIn">
     <div class="col-sm-12">
         <div class="alert alert-warning text-center">
@@ -33,9 +43,11 @@
 
 
                 <h5 class="card-title">
-                    {{seccion}} (
-                    <small>{{totalArchivos}}</small> )
-                    <small> <button  class="btn btn-primary" (click)= "modalNuevoArchivo(NuevoArchivo)"  style="margin: 5px; float:right !important;">
+                    {{seccion}}(
+                    <small>{{totalArchivos}} </small> )
+                    <small> 
+                        
+                        <button  class="btn btn-primary" (click)= "modalNuevoArchivo(NuevoArchivo)"  style="margin: 5px; float:right !important;">
                         <i class="fa fa-plus"></i> Nuevo
                     </button></small>
                 </h5>
@@ -58,7 +70,8 @@
                             </button>
                                 <button (click)="eliminarArchivo(archivo)" class="btn-danger">
                                 <i class="fa fa-trash-o"></i>
-                            </button> Nombre: {{archivo.nombreArchivo}}
+                            </button>
+                                <br> Nombre: {{archivo.nombreArchivo}}
                             </div>
 
                         </div>
@@ -105,8 +118,7 @@
                             <img *ngIf="imgTemp && tipoArchivo === 'others'" [src]="icon | domseguro" class="w150">
                             <br> <br>
                             <input [ngModel]="" name="archivoSubir" type="file" (change)="seleccionImg( $event.target.files[0] )"> <br> <br> <br>
-                            <button type="button" (click)="guardarNuevoArchivo()" [disabled]="!imgSubir" style="width: auto !important;" class="btn iniciar"> 
-                                    <i class="fa fa-save"></i> Guardar</button>
+
 
 
                         </div>
@@ -116,7 +128,8 @@
         </div>
     </div>
     <div class="modal-footer">
-
+        <button type="button" (click)="guardarNuevoArchivo()" [disabled]="!imgSubir" style="width: auto !important;" class="btn iniciar"> 
+            <i class="fa fa-save"></i> Guardar</button>
         <button type="button" class="btn btn-secondary" (click)="modal.close('Save click')">Cancelar</button>
 
     </div>
@@ -125,42 +138,41 @@
 <!-- Ventana modal de editar archivo -->
 <ng-template #EditarArchivo let-modal>
     <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Nuevo Archivo</h4>
+        <h4 class="modal-title" id="modal-basic-title">Editar Archivo</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div class="modal-body">
-        <div class="card">
-            <div class="card-body">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="card-title">
-                                Subir {{tipoArchivo}}
-                                <hr>
-                            </h3>
-                            <h6 class="card-subtitle"></h6>
-                            <img *ngIf="!imgTemp" [src]="'nadaa' | img" class="w150">
-                            <img *ngIf="imgTemp && tipoArchivo === 'image'" [src]="imgTemp" class="w150">
-                            <video controls *ngIf="imgTemp && tipoArchivo === 'video'" [src]="imgTemp" class="w150">
-                                </video>
-                            <img *ngIf="imgTemp && tipoArchivo === 'others'" [src]="icon | domseguro" class="w150">
-                            <br> <br>
-                            <input [ngModel]="" name="archivoSubir" type="file" (change)="seleccionImg( $event.target.files[0] )"> <br> <br> <br>
-                            <button type="button" (click)="guardarNuevoArchivo()" [disabled]="!imgSubir" style="width: auto !important;" class="btn iniciar"> 
-                                    <i class="fa fa-save"></i> Guardar</button>
 
-
-                        </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <img *ngIf="tipoArchivo === 'image'" [src]="archivoM.usuario | archivos:archivoM.nombreArchivo" class="w200">
+                        <video controls *ngIf="tipoArchivo === 'video'" [src]="archivoM.usuario | archivos:archivoM.nombreArchivo" class="w200">
+                        </video>
+                        <img *ngIf="tipoArchivo === 'others'" [src]="icon | domseguro" class="w200">
+                        <br> <br>
                     </div>
                 </div>
+            </div>
+            <div class="col-lg-6">
+                <form #f="ngForm" (ngSubmit)="actualizarArchivo(f.value)">
+                    <div class="card">
+                        <div class="card-body">
+                            <label style="color: black;" for="nombreA">Nombre archivo:</label>
+                            <input [ngModel]="nombreDividido" name="nombreArchivo" class="form-control" type="text" id="nombreA">
+                        </div>
+                    </div>
+                    <button type="submit" style="width: auto !important;" class="btn iniciar"> 
+                        <i class="fa fa-save"></i> Actualizar</button>
+                </form>
+
             </div>
         </div>
     </div>
     <div class="modal-footer">
-
         <button type="button" class="btn btn-secondary" (click)="modal.close('Save click')">Cancelar</button>
-
     </div>
 </ng-template>
