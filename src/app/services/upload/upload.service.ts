@@ -68,6 +68,35 @@ export class UploadService {
     });
   }
 
+  subirProductoEmpresa( archivo: File, idEmpresa: string, idProducto: string ){
+
+    // tslint:disable-next-line: no-shadowed-variable
+    return  new Promise ( ( resolve, reject) => {
+
+      let formData = new FormData();
+      let xhr = new XMLHttpRequest();
+      formData.append('archivoSubir', archivo, archivo.name);
+      xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4){
+        console.log(xhr.status)
+
+        if (xhr.status === 200){
+          console.log('iamgen subida');
+          resolve(JSON.parse(xhr.response));
+        }else {
+          console.log('falló');
+          reject(xhr.response);
+        }
+      }
+      };
+      const URL = URL_SERVICES + `/api/upload/img-product/${idEmpresa}/${idProducto}`;
+      console.log(URL);
+
+      xhr.open('PUT', URL, true);
+      xhr.send(formData);
+
+    });
+  }
 
 
 }

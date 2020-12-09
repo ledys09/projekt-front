@@ -89,7 +89,8 @@ export class FilesComponent implements OnInit {
       this.cargarArchivos(this.tipoArchivo);
     });
     this._modalService.dismissAll();
-   //this.imgTemp= null;
+    this.cargarArchivos(this.tipoArchivo);
+    //this.imgTemp= null;
   }
 
   eliminarArchivo(archivo: Archivo){

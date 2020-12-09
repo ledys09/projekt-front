@@ -65,12 +65,13 @@
                                 </div>
                                 <img *ngIf="tipoArchivo === 'image'" [src]="archivo.usuario | archivos:archivo.nombreArchivo" class="w100"> <br>
                                 <video controls *ngIf="tipoArchivo === 'video'" [src]="archivo.usuario | archivos:archivo.nombreArchivo" class="w200"> 
-                            </video> <br> <button (click)="modalEditarArchivo(archivo, EditarArchivo)" class="btn-primary" style="margin: 5px;">
-                                <i class="fa fa-pencil"></i>
-                            </button>
+                                </video> <br>
+                                <button (click)="modalEditarArchivo(archivo, EditarArchivo)" class="btn-primary" style="margin: 5px;">
+                                    <i class="fa fa-pencil"></i>
+                                </button>
                                 <button (click)="eliminarArchivo(archivo)" class="btn-danger">
-                                <i class="fa fa-trash-o"></i>
-                            </button>
+                                    <i class="fa fa-trash-o"></i>
+                                </button>
                                 <br> Nombre: {{archivo.nombreArchivo}}
                             </div>
 

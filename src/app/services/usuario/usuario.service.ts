@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { UploadService } from '../upload/upload.service';
 import { Archivo } from '../../models/update/update.model';
 import { Categoria } from '../../models/categoria/categoria/categoria.model';
+import { Producto } from '../../models/product.model';
 
 @Injectable({
   providedIn: 'root'
@@ -149,6 +150,16 @@ export class UsuarioService {
     });
   }
 
+  cambiarImgProducto(archivo: File, idProducto: string){
+      this._uploadService.subirProductoEmpresa(archivo, this.id, idProducto)
+      .then((resp: any) => {
+        swal('Imagen actualizada', resp.msg, 'success');
+        })
+        .catch(resp => {
+          console.log('error', resp);
+        });
+  }
+
   cambiarImgAdmin( archivo: File, id: string, role: string){
     if (role === 'admin_role'){
       this.tipo = 'admin';
@@ -251,7 +262,7 @@ export class UsuarioService {
     // .pipe(map( (usuario: any) => usuario.UsuarioDB) );
   }
 
-  cargarCatgorias( ){
+  cargarCategorias( ){
     const URL = URL_SERVICES + `/api/category/${this.id}`;
     return this.http.get(URL);
   }
@@ -281,8 +292,36 @@ export class UsuarioService {
      return this.http.delete(URL, {headers});
   }
   
+  cargarProductos(idCategoria: string){
+    const URL = URL_SERVICES + `/api/product/products/${idCategoria}`;
+    return this.http.get(URL)
+  }
+
+  nuevoProducto(producto: Producto){
+    const headers = new HttpHeaders ({
+      'token': this.token
+    });
+    const URL = URL_SERVICES + `/api/product`;
+    return this.http.post(URL, producto, {headers});
+  }
 
 
+  actualizarProducto(producto: Producto, idProducto: string){
+    ///api/product/:id
+    const headers = new HttpHeaders ({
+      'token': this.token
+    });
+    const URL = URL_SERVICES + `/api/product/${idProducto}`;
+    return this.http.put(URL, producto, {headers});
+  }
+
+  eliminarProducto(idProducto: string){
+    const headers = new HttpHeaders ({
+      'token': this.token
+    });
+const URL = URL_SERVICES + `/api/product/${idProducto}`;
+return this.http.delete(URL, {headers});
+  }
 
 }
 

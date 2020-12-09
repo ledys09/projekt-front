@@ -27,7 +27,7 @@ export class CategoriesComponent implements OnInit {
   }
 
   cargarCategorias(){
-      this._usuarioService.cargarCatgorias()
+      this._usuarioService.cargarCategorias()
       .subscribe((resp: any) => {
         this.categorias = resp.data;
         this.totalCategorias = this.categorias.length;
