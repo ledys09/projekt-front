@@ -16,6 +16,7 @@ import { PlansComponent } from './admin-area/plans/plans/plans.component';
 import { TemplatesAdminComponent } from './admin-area/templates-admin/templates-admin/templates-admin.component';
 import { UsersComponent } from './admin-area/users/users/users.component';
 import { EnterprisesAdminComponent } from './admin-area/enterprises-admin/enterprises-admin/enterprises-admin.component';
+import { EditarPageComponent } from './enterprise-area/editar-page/editar-page/editar-page.component';
 
 
 const routes: Routes = [
@@ -32,6 +33,7 @@ const routes: Routes = [
       { path: 'templates', component: TemplatesComponent, data: { titulo: 'Plantillas'} },
       { path: 'setting', component: SettingComponent, data: { titulo: 'Configuración'} },
       { path: 'profile', component: ProfileComponent, data: { titulo: 'Perfil'} },
+      { path: 'edit-page', component: EditarPageComponent, data: { titulo: 'Editar Página'} },
       // admin-area
       { path: 'admin-plan', component: PlansComponent, data: { titulo: 'Planes de pago'} },
       { path: 'admin-template', component: TemplatesAdminComponent, data: { titulo: 'Plantillas'} },

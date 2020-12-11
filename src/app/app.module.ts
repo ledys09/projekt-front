@@ -18,6 +18,7 @@ import { RegisterClientComponent } from './register/client/register-client.compo
 import { RegisterEnterpriseComponent } from './register/enterprise/register-enterprise.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
+import { CKEditorModule } from 'ng2-ckeditor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -42,6 +43,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HttpClientModule,
     PagesModule,
     AppRoutingModule,
+    CKEditorModule,
     FormsModule,
     ReactiveFormsModule,
     NgbModule,

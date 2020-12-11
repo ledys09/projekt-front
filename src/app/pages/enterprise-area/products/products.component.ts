@@ -30,7 +30,6 @@ export class ProductsComponent implements OnInit {
   cargarCat(){
     this._usuarioService.cargarCategorias()
     .subscribe( (resp: any) => {
-     // console.log(resp.data[0])
       this.categorias = resp.data;
       this.categoriaSeleccionada = resp.data[0]
       this.cargarProducts()
@@ -38,12 +37,10 @@ export class ProductsComponent implements OnInit {
   }
 
   cargarProducts(){
-    console.log(this.categoriaSeleccionada)
     this._usuarioService.cargarProductos(this.categoriaSeleccionada._id)
     .subscribe (( resp: any) => {
     this.productos = resp.data;
     this.cargando = false;
-    console.log(this.productos)
     })
   }
 
@@ -51,7 +48,6 @@ export class ProductsComponent implements OnInit {
   crearProducto(pr){
     this.producto = pr;
     this.producto.categoria = this.categoriaSeleccionada._id
-    console.log(this.producto)
     this._usuarioService.nuevoProducto(this.producto)
     .subscribe ( (resp: any) => {
       swal('Nueva producto', resp.msg, 'success');
@@ -61,14 +57,12 @@ export class ProductsComponent implements OnInit {
   }
 
   modalCrearProducto(modal){
-    console.log(this.categoriaSeleccionada)
     this._modalService.open(modal, {size: 'lg'})
   }
 
   modalEditarProducto(producto, modal){
     this.producto = producto
     this._modalService.open(modal, {size: 'lg'})
-    console.log(this.producto)
 
   }
 
@@ -90,7 +84,6 @@ export class ProductsComponent implements OnInit {
 
   cambiarImg(){
     this._usuarioService.cambiarImgProducto(this.imgSubir, this.producto._id);
-    console.log(this.categoriaSeleccionada)
     this.cargarProducts()
     this._modalService.dismissAll();
     this.imgTemp= null;
@@ -103,11 +96,12 @@ export class ProductsComponent implements OnInit {
     swal(resp.msg, resp.productoDB.nombreProducto, 'success');
     this.cargarProducts();
     this._modalService.dismissAll();
+    this.cargarProducts();
+
   })
   }
 
   eliminarProducto(producto: Producto){
-    console.log(producto)
     swal({
       title: '¿Está seguro?',
       text: 'Una vez eliminado, no puedes recuperarlo!',

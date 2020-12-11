@@ -9,6 +9,8 @@ import { UploadService } from '../upload/upload.service';
 import { Archivo } from '../../models/update/update.model';
 import { Categoria } from '../../models/categoria/categoria/categoria.model';
 import { Producto } from '../../models/product.model';
+import { Pagina } from '../../models/page.model';
+import { Bloque } from '../../models/bloque.model';
 
 @Injectable({
   providedIn: 'root'
@@ -319,8 +321,43 @@ export class UsuarioService {
     const headers = new HttpHeaders ({
       'token': this.token
     });
-const URL = URL_SERVICES + `/api/product/${idProducto}`;
-return this.http.delete(URL, {headers});
+    const URL = URL_SERVICES + `/api/product/${idProducto}`;
+    return this.http.delete(URL, {headers});
+  }
+
+  obtenerPaginas(){
+    const URL = URL_SERVICES + `/api/page/${this.id}`;
+    return this.http.get(URL);
+  }
+
+  nuevaPage(pagina: Pagina){
+    const headers = new HttpHeaders ({
+      'token': this.token
+    });
+    const URL = URL_SERVICES + `/api/page`;
+    return this.http.post(URL, pagina, {headers});
+  }
+
+  eliminarPagina(idPagina: string){
+    const headers = new HttpHeaders ({
+      'token': this.token
+    });
+    const URL = URL_SERVICES + `/api/page/${idPagina}`;
+    return this.http.delete(URL, {headers});
+  }
+
+  actualizarPagina(pagina: Pagina, idPagina: string){
+    const headers = new HttpHeaders ({
+      'token': this.token
+    });
+    const URL = URL_SERVICES + `/api/page/${idPagina}`;
+    return this.http.put(URL, pagina, {headers});
+  }
+
+  crearBloque(bloque: Bloque, idPagina: string){
+   // /api/page/bloque/:idPagina
+   const URL = URL_SERVICES + `/api/page/bloque/${idPagina}`;
+   return this.http.put(URL, bloque);
   }
 
 }

@@ -1,1 +1,83 @@
-<p>pages-e works!</p>
+<div *ngIf="cargando" class="row animated fadeIn">
+    <div class="col-sm-12">
+        <div class="alert alert-warning text-center">
+            <strong>Cargando</strong>
+            <br>
+            <i class="fa fa-refresh fa-spin fa-1x"></i>
+            <br>
+            <span>Espere por favor</span>
+
+        </div>
+    </div>
+</div>
+<div *ngIf="!cargando && !editar" class="row animated fadeIn">
+    <div class="col-12">
+
+        <div class="card-body">
+            <h5 style="color: black;" class="card-title">
+                Total (
+                <small>{{total}} </small> )
+                <button (click)="modalNuevaPagina(NuevaPagina)" class="btn btn-primary" style="margin: 5px; float:right !important;">
+                            <i class="fa fa-plus"></i> Nueva
+                        </button>
+            </h5>
+        </div>
+
+    </div>
+</div>
+
+<div class="container">
+    <div *ngIf="!cargando && !editar" class="row animated fadeIn">
+        <div class="col-12">
+            <div class="card">
+                <ul class="list-group list-group-flush">
+                    <li *ngFor="let pagina of paginas" class="list-group-item">
+                        {{pagina.titulo}} <br> <small>Descripción: {{pagina.descripcion}}</small>
+                        <a (click)="eliminarPagina(pagina)" style="color: red; margin: 5px; float:right !important;" class="card-link enlaces pointer"><i class="fa fa-trash-o"></i> Eliminar</a>
+                        <a (click)="enviarPage(pagina)" style="margin: 5px; float:right !important;" class="card-link enlaces pointer"> <i class="fa fa-pencil"></i> Editar</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<app-editar-page *ngIf="editar" [pagina]="pagina" (mostrar)="editar =$event" (cambio)="paginaE = $event"></app-editar-page>
+
+<!-- Ventana modal de nueva pagina -->
+<ng-template #NuevaPagina let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Nueva página</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <form #f="ngForm" (ngSubmit)="crearPagina(f.value)">
+                    <div class="card">
+                        <div class="card-body">
+                            <label style="color: black;" for="nombreA">Titulo página:</label>
+                            <input [ngModel]="" name="titulo" class="form-control" type="text" id="nombreA">
+                        </div>
+                        <div class="card-body">
+                            <label style="color: black;" for="nombreA">Descripción:</label>
+                            <input [ngModel]="" name="descripcion" class="form-control" type="text" id="nombreA">
+                        </div>
+                    </div>
+                    <button type="submit" style="width: auto !important;" class="btn iniciar"> 
+                        <i class="fa fa-save"></i> Guardar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Save click')">Cancelar</button>
+    </div>
+</ng-template>

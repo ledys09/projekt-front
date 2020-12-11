@@ -1,0 +1,4 @@
+<p> nombre pagina: {{paginaEditar}}</p>
+<p>descr {{pagina.descripcion}}</p>
+<app-pages-e *ngIf="!volver" (pageMod)="pagina = $event"></app-pages-e>
+<button (click)="cambiardelHijo()">volver</button>
