@@ -33,7 +33,7 @@ const routes: Routes = [
       { path: 'templates', component: TemplatesComponent, data: { titulo: 'Plantillas'} },
       { path: 'setting', component: SettingComponent, data: { titulo: 'Configuración'} },
       { path: 'profile', component: ProfileComponent, data: { titulo: 'Perfil'} },
-      { path: 'edit-page', component: EditarPageComponent, data: { titulo: 'Editar Página'} },
+      { path: 'edit', component: EditarPageComponent, data: { titulo: 'Editar'} },
       // admin-area
       { path: 'admin-plan', component: PlansComponent, data: { titulo: 'Planes de pago'} },
       { path: 'admin-template', component: TemplatesAdminComponent, data: { titulo: 'Plantillas'} },

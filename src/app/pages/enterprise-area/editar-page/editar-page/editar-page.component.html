@@ -1,4 +1,99 @@
-<p> nombre pagina: {{paginaEditar}}</p>
-<p>descr {{pagina.descripcion}}</p>
-<app-pages-e *ngIf="!volver" (pageMod)="pagina = $event"></app-pages-e>
-<button (click)="cambiardelHijo()">volver</button>
+<button routerLink="/pages" style="margin: 0%;" class="btn iniciar"> Volver</button>
+
+<div class="container-fluid">
+    <div class="row">
+        <div style="background-color: white;" class="col-lg-4">
+            <p>Editando: {{pagina.titulo}}</p>
+            <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+                <li [ngbNavItem]="1">
+                    <a ngbNavLink>Página</a>
+                    <ng-template ngbNavContent>
+                        <form #f="ngForm" (ngSubmit)="editarPagina(f.value)">
+                            <div class="card">
+                                <div class="card-body">
+                                    <label style="color: black;" for="nombreA">Titulo página:</label>
+                                    <input [ngModel]="pagina.titulo" name="titulo" class="form-control" type="text" id="nombreA">
+                                    <label style="color: black;" for="nombreA">Descripción:</label>
+                                    <textarea [ngModel]="pagina.descripcion" name="descripcion" class="form-control" type="text" id="nombreA" cols="30" rows="5"></textarea>
+
+                                </div>
+
+                            </div>
+                            <button type="submit" style="width: auto !important;" class="btn iniciar"> 
+                                        <i class="fa fa-save"></i> Actualizar</button>
+                        </form>
+                    </ng-template>
+                </li>
+                <li [ngbNavItem]="2">
+                    <a *ngIf="mostrarBM" ngbNavLink>Bloque</a>
+                    <ng-template ngbNavContent>
+                        <form #f="ngForm" (ngSubmit)="actualizandoBloque(f.value)">
+                            <div class="card">
+                                <div class="card-body">
+                                    <label style="color: black;" for="nombreA">Grillas: </label>
+                                    <input [ngModel]="bloqueM.grids" name="grids" class="form-control" type="number" max="12" min="1" id="nombreA">
+                                    <label style="color: black;" for="nombreA">Backgroun-color:</label>
+                                    <input [ngModel]="bloqueM.background" name="background" class="form-control" type="color" id="nombreA">
+                                    <label style="color: black;" for="nombreA">CSS:</label>
+                                    <input [ngModel]="bloqueM.bcss" name="bcss" class="form-control" type="text" id="nombreA">
+                                    <label style="color: black;" for="nombreA">JS:</label>
+                                    <input [ngModel]="bloqueM.bjs" name="bjs" class="form-control" type="text" id="nombreA">
+                                    <!--  <label style="color: black;" for="nombreA">HTML:</label>
+                                    <input [ngModel]="" name="bhtml" class="form-control" type="text" id="nombreA"> -->
+                                    <ckeditor [ngModel]="bloqueM.bhtml" name="bhtml">
+                                    </ckeditor>
+
+                                </div>
+
+                            </div>
+                            <button type="submit" style="width: auto !important;" class="btn iniciar"> 
+                                        <i class="fa fa-save"></i> Actualizar</button>
+                        </form>
+                    </ng-template>
+                </li>
+                <li [ngbNavItem]="3">
+                    <a ngbNavLink>Nuevo B</a>
+                    <ng-template ngbNavContent>
+                        <form #f="ngForm" (ngSubmit)="crearBloque(f.value)">
+                            <div class="card">
+                                <div class="card-body">
+                                    <label style="color: black;" for="nombreA">Grillas: </label>
+                                    <input [ngModel]="" name="grids" class="form-control" type="number" max="12" min="1" id="nombreA">
+                                    <label style="color: black;" for="nombreA">Backgroun-color:</label>
+                                    <input [ngModel]="" name="background" class="form-control" type="color" id="nombreA">
+                                    <label style="color: black;" for="nombreA">CSS:</label>
+                                    <input [ngModel]="" name="bcss" class="form-control" type="text" id="nombreA">
+                                    <label style="color: black;" for="nombreA">JS:</label>
+                                    <input [ngModel]="" name="bjs" class="form-control" type="text" id="nombreA">
+                                    <!--  <label style="color: black;" for="nombreA">HTML:</label>
+                                    <input [ngModel]="" name="bhtml" class="form-control" type="text" id="nombreA"> -->
+                                    <ckeditor [ngModel]="ckeditorContent" name="bhtml">
+                                    </ckeditor>
+
+                                </div>
+
+                            </div>
+                            <button type="submit" style="width: auto !important;" class="btn iniciar"> 
+                                        <i class="fa fa-save"></i> Guardar</button>
+                        </form>
+                    </ng-template>
+                </li>
+            </ul>
+
+            <div [ngbNavOutlet]="nav" class="mt-2"></div>
+
+        </div>
+        <div style="background-color: white; color: white;" class="col-lg-8">
+            <div *ngFor="let bloque of bloques">
+                "
+                <div [innerHTML]="bloque.bhtml" style="background-color: {{bloque.background}}" class="col-lg-{{bloque.grids}}">
+
+                </div>"
+                <button type="button" (click)="editarBloque(bloque)" style="margin: 5px; float: left !important;" class="btn iniciar"> 
+                            Editar</button>
+                <button type="button" (click)="eliminarBloque(bloque)" style="margin: 5px; float: left !important;" class="btn iniciar"> 
+                                Elimnar</button>
+            </div>
+        </div>
+    </div>
+</div>

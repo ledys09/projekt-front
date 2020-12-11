@@ -22,6 +22,13 @@ export class UsuarioService {
   token: string;
   role: string;
   id: string;
+ // pagina: Pagina;
+ pagina: Pagina = {
+   _id: '1',
+  titulo: 'x',
+  descripcion: 'pagina descr x',
+  bloques: []
+}
   
 
   constructor( public http: HttpClient,
@@ -29,6 +36,28 @@ export class UsuarioService {
                public _uploadService: UploadService ) {
     this.cargarStorage();
   }
+
+ 
+
+  guardarPaginaStorage(){
+    localStorage.setItem('paginaEditar', JSON.stringify(this.pagina));
+    console.log('guardado en el local')
+  }
+
+  cargarPaginaStorage(){
+    if(localStorage.getItem('paginaEditar')){
+      this.pagina = JSON.parse(localStorage.getItem('paginaEditar'));
+      console.log('cargando de local');
+    } else{
+      console.log('usando valor por defecto')
+    }
+  }
+
+  marcarPagina(pagina: Pagina){
+    this.pagina = pagina
+    console.log(this.pagina)
+  }
+
 
   guardarStorage(id: string, token: string, usuario: Usuario, role: string, menu: any){
     localStorage.setItem('id', id);
@@ -346,11 +375,11 @@ export class UsuarioService {
     return this.http.delete(URL, {headers});
   }
 
-  actualizarPagina(pagina: Pagina, idPagina: string){
+  actualizarPagina(pagina: Pagina){
     const headers = new HttpHeaders ({
       'token': this.token
     });
-    const URL = URL_SERVICES + `/api/page/${idPagina}`;
+    const URL = URL_SERVICES + `/api/page/${this.pagina._id}`;
     return this.http.put(URL, pagina, {headers});
   }
 
@@ -358,6 +387,24 @@ export class UsuarioService {
    // /api/page/bloque/:idPagina
    const URL = URL_SERVICES + `/api/page/bloque/${idPagina}`;
    return this.http.put(URL, bloque);
+  }
+
+  eliminarBloque(bloque: Bloque){
+// }/api/page/bloque/delete/:idPagina/:idBloque
+const URL = URL_SERVICES + `/api/page/bloque/delete/${this.pagina._id}/${bloque._id}`;
+return this.http.put(URL, {});
+  }
+
+  actualizarBloque(bloque: Bloque, idBloque: string){
+    //:idPagina/:idBloque
+    const URL = URL_SERVICES + `/api/page/bloque/${this.pagina._id}/${idBloque}`;
+    return this.http.put(URL, {bloque});
+  }
+
+  paginaSingle(){
+      // /api/page/pages/5fd1c4ba5f33d7c72c908533 
+      const URL = URL_SERVICES + `/api/page/pages/${this.pagina._id}`;
+      return this.http.get(URL);
   }
 
 }

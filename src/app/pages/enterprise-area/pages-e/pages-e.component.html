@@ -10,7 +10,7 @@
         </div>
     </div>
 </div>
-<div *ngIf="!cargando && !editar" class="row animated fadeIn">
+<div *ngIf="!cargando" class="row animated fadeIn">
     <div class="col-12">
 
         <div class="card-body">
@@ -27,7 +27,7 @@
 </div>
 
 <div class="container">
-    <div *ngIf="!cargando && !editar" class="row animated fadeIn">
+    <div *ngIf="!cargando" class="row animated fadeIn">
         <div class="col-12">
             <div class="card">
                 <ul class="list-group list-group-flush">
@@ -42,11 +42,6 @@
     </div>
 </div>
 
-
-
-
-
-<app-editar-page *ngIf="editar" [pagina]="pagina" (mostrar)="editar =$event" (cambio)="paginaE = $event"></app-editar-page>
 
 <!-- Ventana modal de nueva pagina -->
 <ng-template #NuevaPagina let-modal>

@@ -15,7 +15,7 @@ export class PagesEComponent implements OnInit {
   @Output() pageMod = new EventEmitter<Pagina>();
   active = 1;
   cargando = true;
-  editar = false;
+  //editar = false;
   total = 0;
   paginas: Pagina[];
   pagina: Pagina;
@@ -34,9 +34,12 @@ export class PagesEComponent implements OnInit {
 
   enviarPage(pagina: Pagina){
     console.log(pagina)
-    this.pagina = pagina;
-    this.pageMod.emit(this.pagina)
-    this.editar = true;
+    this._usuarioService.pagina = pagina;
+    this._usuarioService.guardarPaginaStorage();
+    this.router.navigate(['/edit'])
+   // this.pagina = pagina;
+    //this.pageMod.emit(this.pagina)
+   // this.editar = true;
    // this.bloques = pagina.bloques;
 
     /* this.paginaE = 'pagina a enviar'
@@ -89,23 +92,17 @@ export class PagesEComponent implements OnInit {
       });
   }
 
-  editarPaginaBloques(pagina: Pagina){
-    console.log(pagina)
-    this.pagina = pagina
-    this.bloques = this.pagina.bloques;
-    //this.router.navigate(['/dashboard']);
-    this.editar = true;
-  }
+ 
   
-  editarPagina(pagina: Pagina){
+ /*  editarPagina(pagina: Pagina){
    // console.log(pagina)
    this._usuarioService.actualizarPagina(pagina, this.pagina._id)
    .subscribe((resp: any) => {
    
    })
-  }
+  } */
 
-  crearBloque(bloque: Bloque){
+/*   crearBloque(bloque: Bloque){
     console.log(bloque)
     this._usuarioService.crearBloque(bloque, this.pagina._id )
     .subscribe ( (resp: any) => {
@@ -123,7 +120,7 @@ export class PagesEComponent implements OnInit {
   eliminarBloque(bloque: Bloque){
     console.log(bloque)
   }
-
+ */
 
 
 
