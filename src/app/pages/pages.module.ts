@@ -24,6 +24,7 @@ import { UsersComponent } from './admin-area/users/users/users.component';
 import { EnterprisesAdminComponent } from './admin-area/enterprises-admin/enterprises-admin/enterprises-admin.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EditarPageComponent } from './enterprise-area/editar-page/editar-page/editar-page.component';
+import { OficialsiteComponent } from './enterprise-area/oficialsite/oficialsite.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { EditarPageComponent } from './enterprise-area/editar-page/editar-page/e
     TemplatesAdminComponent,
     UsersComponent,
     EnterprisesAdminComponent,
-    EditarPageComponent
+    EditarPageComponent,
+    OficialsiteComponent
   ],
   exports: [
     PagesComponent,

@@ -5,6 +5,11 @@ body {
     height: auto !important;
 }
 
+.w500 {
+    width: 700px;
+    margin: auto;
+}
+
 .btn {
     background-color: #602080;
     border-color: #602080;

@@ -1,0 +1,26 @@
+<div class="container">
+    <!-- Image and text -->
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img [src]="this._usuarioServicio.usuario.foto | img:this._usuarioServicio.usuario.role" class="w50 rounded-circle"> {{this._usuarioServicio.usuario.nombreEmpresa}}
+            </a>
+        </div>
+    </nav>
+
+    <ol class="breadcrumb">
+        <li *ngFor="let pagina of paginas" class="breadcrumb-item ">
+            <a href="javascript:void(0)" (click)="paginaInfo(pagina)">{{pagina.titulo}}</a>
+        </li>
+    </ol>
+
+
+
+    <div *ngFor="let bloque of bloques">
+        "
+        <div [innerHTML]="bloque.bhtml" style="background-color: {{bloque.background}}" class="col-lg-{{bloque.grids}}">
+
+        </div>"
+    </div>
+
+</div>

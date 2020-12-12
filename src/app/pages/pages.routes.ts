@@ -17,6 +17,7 @@ import { TemplatesAdminComponent } from './admin-area/templates-admin/templates-
 import { UsersComponent } from './admin-area/users/users/users.component';
 import { EnterprisesAdminComponent } from './admin-area/enterprises-admin/enterprises-admin/enterprises-admin.component';
 import { EditarPageComponent } from './enterprise-area/editar-page/editar-page/editar-page.component';
+import { OficialsiteComponent } from './enterprise-area/oficialsite/oficialsite.component';
 
 
 const routes: Routes = [
@@ -34,6 +35,7 @@ const routes: Routes = [
       { path: 'setting', component: SettingComponent, data: { titulo: 'Configuración'} },
       { path: 'profile', component: ProfileComponent, data: { titulo: 'Perfil'} },
       { path: 'edit', component: EditarPageComponent, data: { titulo: 'Editar'} },
+      { path: 'oficial', component: OficialsiteComponent, data: { titulo: 'Mi sitio'} },
       // admin-area
       { path: 'admin-plan', component: PlansComponent, data: { titulo: 'Planes de pago'} },
       { path: 'admin-template', component: TemplatesAdminComponent, data: { titulo: 'Plantillas'} },
