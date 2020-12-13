@@ -1,12 +1,15 @@
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2">
+        <div *ngFor="let empresa of empresas" class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2">
             <div class="card" style="color: #b030b0; margin-top: 50px;">
-                <img src="https://img.freepik.com/vector-gratis/logotipo-moda_23-2148558723.jpg?size=626&ext=jpg" class="card-img-top" alt="...">
+                <img [src]="empresa.foto | img:empresa.role" class="w150 rounded">
                 <div class="card-body">
-                    <h5 class="card-title">Empresa 1</h5>
-                    <p class="card-text">Descripción</p>
-                    <a href="#" class="btn btn-primary">Visitar</a>
+                    <h5 class="card-title">{{empresa.nombreEmpresa}}</h5>
+                    <p class="card-text">Contactanos: {{empresa.correo}}</p>
+                    <a href="#" *ngIf="this._usuarioService.role === 'client_role'" class="btn btn-primary">Visitar</a>
+                    <button *ngIf="this._usuarioService.role === 'admin_role'" (click)="eliminarEmpresa(empresa)" class="btn-danger">
+                        <i class="fa fa-trash-o"></i>
+                    </button>
                 </div>
             </div>
         </div>

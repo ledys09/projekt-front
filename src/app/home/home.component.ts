@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UsuarioService } from '../services/usuario/usuario.service';
+import { Plan } from '../models/plan.model';
 
 declare function init_plugins();
 
@@ -10,10 +12,19 @@ declare function init_plugins();
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  planes: Plan[];
+  constructor(public _usuarioService: UsuarioService) { }
 
   ngOnInit(): void {
     init_plugins();
+    this.cargarPlanes()
+  }
+
+  cargarPlanes(){
+    this._usuarioService.obtenerPlan()
+    .subscribe( (resp: any) => {
+      this.planes = resp.data
+    })
   }
 
 }

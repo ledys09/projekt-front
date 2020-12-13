@@ -11,6 +11,7 @@ import { Categoria } from '../../models/categoria/categoria/categoria.model';
 import { Producto } from '../../models/product.model';
 import { Pagina } from '../../models/page.model';
 import { Bloque } from '../../models/bloque.model';
+import { Plan } from '../../models/plan.model';
 
 @Injectable({
   providedIn: 'root'
@@ -154,7 +155,6 @@ export class UsuarioService {
     return this.http.post(URL, usuario)
     .pipe(map((resp: any) => {
       this.guardarStorage(resp.id, resp.token, resp.usuario, resp. role, resp.menu);
-      
       return true;
     }));
   }
@@ -223,6 +223,15 @@ export class UsuarioService {
     const URL = URL_SERVICES + `/api/user/users/${role}?desde=${desde}`;
     return this.http.get(URL, {headers});
   }
+
+  cargarEmpresas(){
+    const headers = new HttpHeaders ({
+      'token': this.token
+    });
+    const URL = URL_SERVICES + `/api/user/enterprises`;
+    return this.http.get(URL,  {headers});
+  }
+
 
   buscar( coleccion: string, termino: string){
     const headers = new HttpHeaders ({
@@ -405,6 +414,36 @@ return this.http.put(URL, {});
       // /api/page/pages/5fd1c4ba5f33d7c72c908533 
       const URL = URL_SERVICES + `/api/page/pages/${this.pagina._id}`;
       return this.http.get(URL);
+  }
+
+  obtenerPlan(){
+    const URL = URL_SERVICES + `/api/plan`;
+    return this.http.get(URL);
+  }
+
+  nuevoPlan(plan: Plan){
+    const headers = new HttpHeaders ({
+      'token': this.token
+    });
+    const URL = URL_SERVICES + `/api/plan`;
+    return this.http.post(URL, plan, {headers});
+  }
+  
+  editarPlan(plan: Plan, id: String){
+    const headers = new HttpHeaders ({
+      'token': this.token
+    });
+    const URL = URL_SERVICES + `/api/plan/${id}`;
+    return this.http.put(URL, plan, {headers});
+  }
+ 
+  eliminarPlan(id: string){
+    const headers = new HttpHeaders ({
+      'token': this.token
+    });
+    const URL = URL_SERVICES + `/api/plan/${id}`;
+    return this.http.delete(URL, {headers});
+    
   }
 
 }

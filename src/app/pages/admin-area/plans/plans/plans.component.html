@@ -1,1 +1,144 @@
-<p>plans works!</p>
+<div *ngIf="cargando" class="row animated fadeIn">
+    <div class="col-sm-12">
+        <div class="alert alert-warning text-center">
+            <strong>Cargando</strong>
+            <br>
+            <i class="fa fa-refresh fa-spin fa-1x"></i>
+            <br>
+            <span>Espere por favor</span>
+
+        </div>
+    </div>
+</div>
+<div *ngIf="!cargando" class="row animated fadeIn">
+    <div class="col-12">
+
+        <div class="card-body">
+            <h5 style="color: black;" class="card-title">
+                Total (
+                <small>{{total}} </small> )
+                <button (click)="modalNuevoPlan(NuevoPlan)" class="btn btn-primary" style="margin: 5px; float:right !important;">
+                            <i class="fa fa-plus"></i> Nuevo
+                        </button>
+            </h5>
+        </div>
+
+    </div>
+</div>
+
+<div class="container">
+    <div *ngIf="!cargando" class="row animated fadeIn">
+        <div class="col-12">
+            <div class="card">
+                <ul class="list-group list-group-flush">
+                    <li style="color: black;" *ngFor="let plan of planes" class="list-group-item">
+                        {{plan.nombrePlan}} <br> <small>Precio: L.{{plan.precio}}</small>
+                        <a (click)="eliminarPlan(plan)" style="color: red; margin: 5px; float:right !important;" class="card-link enlaces pointer"><i class="fa fa-trash-o"></i> Eliminar</a>
+                        <a (click)="modalEditarPlan(EditarPlan, plan)" style="margin: 5px; float:right !important;" class="card-link enlaces pointer"> <i class="fa fa-pencil"></i> Editar</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Ventana modal de nuevo plan -->
+<ng-template #NuevoPlan let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Nuevo plan</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <form #f="ngForm" (ngSubmit)="crearPlan(f.value)">
+                    <div class="card">
+                        <div class="col-lg-12">
+                            <label style="color: black;" for="nombreA">Nombre del plan:</label>
+                            <input [ngModel]="" name="nombrePlan" class="form-control" type="text" id="nombreA">
+                        </div>
+                        <div class="col-lg-6">
+                            <label style="color: black;" for="nombreA">Precio:</label>
+                            <input [ngModel]="" name="precio" class="form-control" type="number" min="0" id="nombreA">
+                        </div>
+                        <div class="col-lg-6">
+                            <label style="color: black;" for="nombreA">Límite páginas:</label>
+                            <input [ngModel]="" name="paginas" class="form-control" type="number" min="0" id="nombreA">
+                        </div>
+                        <div class="col-lg-6">
+                            <label style="color: black;" for="nombreA">Límite imágenes:</label>
+                            <input [ngModel]="" name="imagenes" class="form-control" type="number" min="0" id="nombreA">
+                        </div>
+                        <div class="col-lg-6">
+                            <label style="color: black;" for="nombreA">Límite videos:</label>
+                            <input [ngModel]="" name="videos" class="form-control" type="number" min="0" id="nombreA">
+                        </div>
+                        <div class="col-lg-6">
+                            <label style="color: black;" for="nombreA">Límite documentos:</label>
+                            <input [ngModel]="" name="documentos" class="form-control" type="number" min="0" id="nombreA">
+                        </div>
+                    </div>
+                    <button type="submit" style="width: auto !important;" class="btn iniciar"> 
+                        <i class="fa fa-save"></i> Guardar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Save click')">Cancelar</button>
+    </div>
+</ng-template>
+
+<!-- Ventana modal de editar Plan -->
+<ng-template #EditarPlan let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Editar plan</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <form #f="ngForm" (ngSubmit)="actualizarPlan(f.value)">
+                    <div class="card">
+                        <div class="col-lg-12">
+                            <label style="color: black;" for="nombreA">Nombre del plan:</label>
+                            <input [ngModel]="plan.nombrePlan" name="nombrePlan" class="form-control" type="text" id="nombreA">
+                        </div>
+                        <div class="col-lg-6">
+                            <label style="color: black;" for="nombreA">Precio:</label>
+                            <input [ngModel]="plan.precio" name="precio" class="form-control" type="number" min="0" id="nombreA">
+                        </div>
+                        <div class="col-lg-6">
+                            <label style="color: black;" for="nombreA">Límite páginas:</label>
+                            <input [ngModel]="plan.paginas" name="paginas" class="form-control" type="number" min="0" id="nombreA">
+                        </div>
+                        <div class="col-lg-6">
+                            <label style="color: black;" for="nombreA">Límite imágenes:</label>
+                            <input [ngModel]="plan.imagenes" name="imagenes" class="form-control" type="number" min="0" id="nombreA">
+                        </div>
+                        <div class="col-lg-6">
+                            <label style="color: black;" for="nombreA">Límite videos:</label>
+                            <input [ngModel]="plan.videos" name="videos" class="form-control" type="number" min="0" id="nombreA">
+                        </div>
+                        <div class="col-lg-6">
+                            <label style="color: black;" for="nombreA">Límite documentos:</label>
+                            <input [ngModel]="plan.documentos" name="documentos" class="form-control" type="number" min="0" id="nombreA">
+                        </div>
+                    </div>
+                    <button type="submit" style="width: auto !important;" class="btn iniciar"> 
+                        <i class="fa fa-save"></i> Actualizar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Save click')">Cancelar</button>
+    </div>
+</ng-template>
