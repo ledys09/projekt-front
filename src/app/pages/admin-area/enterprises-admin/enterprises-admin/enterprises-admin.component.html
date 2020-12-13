@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div *ngIf="!mostrarSitio" class="container-fluid">
     <div class="row">
         <div *ngFor="let empresa of empresas" class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2">
             <div class="card" style="color: #b030b0; margin-top: 50px;">
@@ -6,7 +6,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{empresa.nombreEmpresa}}</h5>
                     <p class="card-text">Contactanos: {{empresa.correo}}</p>
-                    <a href="#" *ngIf="this._usuarioService.role === 'client_role'" class="btn btn-primary">Visitar</a>
+                    <a (click)="visitar(empresa)" *ngIf="this._usuarioService.role === 'client_role'" class="btn btn-primary">Visitar</a>
                     <button *ngIf="this._usuarioService.role === 'admin_role'" (click)="eliminarEmpresa(empresa)" class="btn-danger">
                         <i class="fa fa-trash-o"></i>
                     </button>
@@ -14,4 +14,32 @@
             </div>
         </div>
     </div>
+</div>
+
+
+<div *ngIf="mostrarSitio" class="container">
+    <button (click)="volver()" style="margin: 0%;" class="btn iniciar"> Volver</button>
+    <br> <br>
+    <hr>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img [src]="empresa.foto | img:empresa.role" class="w50 rounded-circle"> {{empresa.nombreEmpresa}}
+            </a>
+        </div>
+    </nav>
+
+    <ol class="breadcrumb">
+        <li *ngFor="let pagina of paginas" class="breadcrumb-item ">
+            <a href="javascript:void(0)" (click)="paginaInfo(pagina)">{{pagina.titulo}}</a>
+        </li>
+    </ol>
+
+    <div *ngFor="let bloque of bloques">
+        "
+        <div [innerHTML]="bloque.bhtml" style="background-color: {{bloque.background}}" class="col-lg-{{bloque.grids}}">
+
+        </div>"
+    </div>
+
 </div>

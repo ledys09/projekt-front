@@ -368,6 +368,11 @@ export class UsuarioService {
     return this.http.get(URL);
   }
 
+  cargarSitio(id: string){
+    const URL = URL_SERVICES + `/api/page/${id}`;
+    return this.http.get(URL);
+  }
+
   nuevaPage(pagina: Pagina){
     const headers = new HttpHeaders ({
       'token': this.token

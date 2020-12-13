@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from '../../../../services/usuario/usuario.service';
 import { Usuario } from '../../../../models/usuario/usuario.model';
 import swal from 'sweetalert'
+import { Pagina } from '../../../../models/page.model';
+import { Bloque } from '../../../../models/bloque.model';
 
 @Component({
   selector: 'app-enterprises-admin',
@@ -9,9 +11,12 @@ import swal from 'sweetalert'
   styleUrls: ['./enterprises-admin.component.css']
 })
 export class EnterprisesAdminComponent implements OnInit {
-
+  empresa: Usuario;
   empresas: Usuario[];
-
+  bloques: Bloque[];
+  paginas: Pagina[];
+  pagina: Pagina;
+  mostrarSitio = false;
   constructor(public _usuarioService: UsuarioService) { 
     this.cargarEmpresas()
   }
@@ -26,6 +31,29 @@ export class EnterprisesAdminComponent implements OnInit {
     })
   }
 
+  visitar(empresa: Usuario){
+    // console.log(empresa);
+    this.empresa = empresa
+    this._usuarioService.cargarSitio(empresa._id)
+    .subscribe( (resp: any) => {
+      this.paginas = resp.data;
+      this.paginas.forEach((element, i )=> {
+        if(i === 0){
+          this.bloques = element.bloques
+        }
+      });
+    })
+    this.mostrarSitio = true;
+  }
+
+  paginaInfo(pagina: Pagina){
+    this.bloques= pagina.bloques
+  }
+
+  volver(){
+    this.mostrarSitio = false;
+    this.bloques = []
+  }
   eliminarEmpresa(empresa: Usuario){
     swal({
       title: '¿Está seguro?',
@@ -46,5 +74,6 @@ export class EnterprisesAdminComponent implements OnInit {
       }
     });
   }
+
 
 }
