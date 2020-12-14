@@ -193,13 +193,10 @@ seleccionImg(archivo: File){
 
 cambiarImg(){
 this._usuarioService.cambiarImgAdmin(this.imgSubir, this.usuarioM._id, this.usuarioM.role);
-console.log(this.role);
+this.imgTemp= null;
 this.cargarUsuarios(this.role, this.desde);
 this._modalService.dismissAll();
-this.imgTemp= null;
-this.imgSubir = null;
-
-
+this.cargarUsuarios(this.role, this.desde);
 }
 
 }

@@ -21,13 +21,16 @@ export class ProductsComponent implements OnInit {
 
 
   constructor(public _usuarioService: UsuarioService,
-              public _modalService: NgbModal) { }
+              public _modalService: NgbModal) { 
+                this.cargarCat()
+              }
 
   ngOnInit(): void {
-    this.cargarCat()
+   
   }
 
   cargarCat(){
+    this.cargando = false;
     this._usuarioService.cargarCategorias()
     .subscribe( (resp: any) => {
       this.categorias = resp.data;
@@ -37,6 +40,7 @@ export class ProductsComponent implements OnInit {
   }
 
   cargarProducts(){
+    this.cargando = false;
     this._usuarioService.cargarProductos(this.categoriaSeleccionada._id)
     .subscribe (( resp: any) => {
     this.productos = resp.data;
@@ -84,10 +88,11 @@ export class ProductsComponent implements OnInit {
 
   cambiarImg(){
     this._usuarioService.cambiarImgProducto(this.imgSubir, this.producto._id);
+    this.cargarProducts();
+    this.imgTemp= null;
     this.cargarProducts()
     this._modalService.dismissAll();
-    this.imgTemp= null;
-    this.imgSubir = null;
+    this.cargarProducts()
     }
 
   editarProducto(producto: Producto){

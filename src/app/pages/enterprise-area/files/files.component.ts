@@ -27,13 +27,15 @@ export class FilesComponent implements OnInit {
 
   constructor(public _modalService: NgbModal,
               public _usuarioService: UsuarioService) {
+               
                }
-
+              
   ngOnInit(): void {
-    this.cargarArchivos(this.tipoArchivo);
+     this.cargarArchivos(this.tipoArchivo);
   }
 
   cargarArchivos(tipo: string){
+    this.cargando = false;
     this.tipoArchivo = tipo;
     if(tipo === 'others'){
       this.seccion = 'Otros';

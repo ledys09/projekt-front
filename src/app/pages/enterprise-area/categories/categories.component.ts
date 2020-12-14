@@ -27,6 +27,7 @@ export class CategoriesComponent implements OnInit {
   }
 
   cargarCategorias(){
+    this.cargando = false;
       this._usuarioService.cargarCategorias()
       .subscribe((resp: any) => {
         this.categorias = resp.data;
@@ -74,11 +75,11 @@ export class CategoriesComponent implements OnInit {
       if (borrar) {
         this._usuarioService.eliminarCategoria(categoria._id)
     .subscribe((resp: any) => {
-      swal(`${ resp.msg}`, {
-        icon: 'success',
-      });
+      this.cargarCategorias();
+      swal(`${ resp.msg}`, { icon: 'success',});
       this.cargarCategorias();
         });
+        this.cargarCategorias();
       }
     });
   }

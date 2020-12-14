@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Usuario } from 'src/app/models/usuario/usuario.model';
 import { UsuarioService } from '../../services/usuario/usuario.service';
 import { Router } from '@angular/router';
+import swal from 'sweetalert'
 
 declare function init_plugins();
 
@@ -34,7 +35,7 @@ export class RegisterEnterpriseComponent implements OnInit {
   // tslint:disable-next-line: typedef
   registrarEmpresa(){
     if (this.forma.invalid){
-      console.log('error en datos');
+      swal('Datos incompletos', 'Debes llenar todos los datos', 'error');
       return;
     }
     const usuario = new Usuario(

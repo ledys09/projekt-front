@@ -182,7 +182,7 @@ export class UsuarioService {
   }
 
   cambiarImgProducto(archivo: File, idProducto: string){
-      this._uploadService.subirProductoEmpresa(archivo, this.id, idProducto)
+    return  this._uploadService.subirProductoEmpresa(archivo, this.id, idProducto)
       .then((resp: any) => {
         swal('Imagen actualizada', resp.msg, 'success');
         })
@@ -201,7 +201,7 @@ export class UsuarioService {
     if ( role === 'enterprise_role'){
       this.tipo = 'enterprise';
     }
-    this._uploadService.subirArchivo(archivo, this.tipo, id)
+  this._uploadService.subirArchivo(archivo, this.tipo, id)
     .then((resp: any) => {
       swal('Imagen actualizada', resp.msg, 'success');
       if (id === this.id){
